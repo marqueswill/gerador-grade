@@ -24,7 +24,14 @@ def parse_course(course_sigaa_id):
     except:
         print(f"O curso {course_sigaa_id} não possui currículo")
         return
-    payload = f'formCurriculosCurso=formCurriculosCurso&nivel=G&javax.faces.ViewState={request_data["javax"]}&formCurriculosCurso%3Aj_id_jsp_154341757_30=formCurriculosCurso%3Aj_id_jsp_154341757_30&id={request_data["id"]}'
+    
+    payload = {
+        "formCurriculosCurso": "formCurriculosCurso",
+        "nivel": "G",
+        "javax.faces.ViewState": request_data["javax"],
+        "formCurriculosCurso:j_id_jsp_154341757_30": "formCurriculosCurso:j_id_jsp_154341757_30",
+        "id": request_data["id"],
+    }
     headers = {
         "Content-Type": "application/x-www-form-urlencoded",
         "Cookie": request_data["cookies"],

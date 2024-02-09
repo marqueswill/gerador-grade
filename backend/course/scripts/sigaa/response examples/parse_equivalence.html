@@ -1,0 +1,4127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <title>
+      SIGAA - Sistema Integrado de Gest&#227;o de Atividades Acad&#234;micas
+    </title>
+    <link
+      class="component"
+      href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      class="component"
+      href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf"
+      media="rich-extended-skinning"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script type="text/javascript">
+      window.RICH_FACES_EXTENDED_SKINNING_ON = true;
+    </script>
+    <script
+      src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf"
+      type="text/javascript"
+    ></script>
+    <link rel="shortcut icon" href="/sigaa/img/sigaa.ico" />
+
+    <script
+      type="text/javascript"
+      src="/shared/jsBundles/jawr_loader.js"
+    ></script>
+    <script
+      src="/sigaa/javascript/prevenir-duplo-clique.js"
+      type="text/javascript"
+    ></script>
+    <script type="text/javascript">
+      JAWR.loader.style(
+        "/javascript/ext-2.0.a.1/resources/css/ext-all.css",
+        "all"
+      );
+      JAWR.loader.style("/css/public.css", "all");
+      JAWR.loader.script("/bundles/js/sigaa_base.js");
+      JAWR.loader.script("/bundles/js/ext2_all.js");
+    </script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+      href="/sigaa/cssBundles/gzip_N1328554985/public/css/public.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/shared/beta/css/font-awesome.css"
+      media="screen"
+    />
+
+    <script src="/shared/javascript/STICookieConsent.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        generateCookieConsentModal(
+          "SIGAA",
+          "N&#243;s usamos cookies para melhorar sua experi&#234;ncia de navega&#231;&#227;o no portal. Ao utilizar o %sitename%, voc&#234; concorda com a pol&#237;tica de monitoramento de cookies. Para ter mais informa&#231;&#245;es sobre como isso &#233; feito e como remover, acesse a <a href=%cookie-policy%>Pol&#237;tica de Prote&#231;&#227;o de Dados Pessoais</a>. Para saber como a UnB trata os dados, acesse a <a href=%privacy-policy%> Pol&#237;tica de cookies</a>. Se voc&#234; concorda, clique em %button-text%.",
+          "https://protecaodedados.unb.br",
+          "https://sti.unb.br/doc-politicas"
+        );
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="container-inner">
+        <div id="cabecalho">
+          <div id="logo">
+            <a href="/sigaa/public/">
+              <img src="https://sig.unb.br/shared/img/instituicao/brasao.png" />
+            </a>
+          </div>
+          <div id="identificacao">
+            <span class="ufrn"> Universidade de Bras&#237;lia </span>
+            <span class="data"> Bras&#237;lia, 09 de Fevereiro de 2024 </span>
+            <a
+              id="home"
+              href="/sigaa/public/"
+              title="P&#225;gina inicial"
+              style="width: 450px"
+            >
+            </a>
+            <div id="menu_info">
+              <ul>
+                <li class="acessibilidade">
+                  <a
+                    href="https://autenticacao.unb.br/sso-server/login?service=https://sig.unb.br/sigaa/login/cas?acessibilidade=true"
+                    alt="Acess&#237;vel para pessoas com defici&#234;ncia visual"
+                    title="Acess&#237;vel para pessoas com defici&#234;ncia visual"
+                  >
+                    Acess&#237;vel para pessoas com defici&#234;ncia visual
+                  </a>
+                </li>
+
+                <li class="login">
+                  <a
+                    href="/sigaa/"
+                    alt="Clique aqui para logar-se no SIGAA"
+                    title="Clique aqui para logar-se no SIGAA"
+                  >
+                    Login
+                    <i class="fa fa-angle-right"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <br clear="all" />
+        </div>
+
+        <div id="corpo">
+          <style>
+            .colCodigo{text-align:center !important}
+            .colObg{text-align:center !important}
+            .colAtivo{text-align:left !important; width: 10%; !important}
+            .colMatriz{text-align:left !important}
+            .colExpressao{text-align:left !important; width: 55%;}
+            .colPeriodo{text-align:right !important}
+            .colCurriculo{text-align:left !important}
+            .colData{text-align:left !important}
+            /* Tarefa #8826 UnB - Adiciona classe .destaqueLinha*/
+            .destaqueLinha{background-color:#8FBC8F}
+          </style>
+          <h2>Resumo do Componente Curricular</h2>
+
+          <table class="visualizacao" width="100%">
+            <caption>
+              Dados Gerais do Componente Curricular
+            </caption>
+
+            <tr>
+              <th>Tipo do Componente Curricular:</th>
+              <td>DISCIPLINA</td>
+            </tr>
+
+            <tr>
+              <th width="295px;"><b>Modalidade de Educa&#231;&#227;o:</b></th>
+              <td>Presencial</td>
+            </tr>
+
+            <tr>
+              <th>Unidade Respons&#225;vel:</th>
+              <td>
+                DEPARTAMENTO DE MATEM&Aacute;TICA - BRAS&Iacute;LIA -
+                11.01.01.15.03
+              </td>
+            </tr>
+
+            <tr>
+              <th width="30%">C&#243;digo:</th>
+              <td>MAT0025</td>
+            </tr>
+            <tr>
+              <th>Nome:</th>
+              <td>C&Aacute;LCULO 1</td>
+            </tr>
+            <tr>
+              <th>Pr&#233;-Requisitos:</th>
+              <td>-</td>
+            </tr>
+            <tr>
+              <th>Co-Requisitos:</th>
+              <td>-</td>
+            </tr>
+            <tr>
+              <th>Equival&#234;ncias:</th>
+              <td>
+                ( (
+                <acronym title="MAT0137 - C&#193;LCULO 1 - SEMIPRESENCIAL"
+                  >MAT0137</acronym
+                >
+                ) OU ( <acronym title="MAT0024 - CALCULO 1">MAT0024</acronym> )
+                )
+              </td>
+            </tr>
+
+            <tr>
+              <th>Excluir da Avalia&#231;&#227;o Institucional:</th>
+              <td>N&#227;o</td>
+            </tr>
+
+            <tr>
+              <th>Matricul&#225;vel On-Line:</th>
+              <td>Sim</td>
+            </tr>
+            <tr>
+              <th>Hor&#225;rio Flex&#237;vel da Turma:</th>
+              <td>N&#227;o</td>
+            </tr>
+            <tr>
+              <!-- Tarefa 11498 UnB -->
+              <th>Hor&#225;rio Flex&#237;vel do(a) Docente:</th>
+              <td>Sim</td>
+            </tr>
+            <!-- Fim Tarefa 11498 UnB -->
+            <tr>
+              <th>Obrigatoriedade de Nota Final:</th>
+              <td>Sim</td>
+            </tr>
+            <tr>
+              <th>Pode Criar Turma Sem Solicita&#231;&#227;o:</th>
+              <td>Sim</td>
+            </tr>
+            <tr>
+              <!-- Tarefa 11419 UnB - Inclu&#237;do "(a)" -->
+              <th>Necessita de Orientador(a):</th>
+              <!-- Fim Tarefa 11419 UnB -->
+              <td>N&#227;o</td>
+            </tr>
+
+            <tr>
+              <th>Possui Subturmas:</th>
+              <td>N&#227;o</td>
+            </tr>
+
+            <tr>
+              <th>Exige Hor&#225;rio:</th>
+              <td>Sim</td>
+            </tr>
+
+            <tr>
+              <th>Permite M&#250;ltiplas Aprova&#231;&#245;es:</th>
+              <td>N&#227;o</td>
+            </tr>
+
+            <tr>
+              <th valign="top">Quantidade de Avalia&#231;&#245;es:</th>
+              <td>1</td>
+            </tr>
+
+            <tr>
+              <th valign="top">Ementa/Descri&#231;&#227;o:</th>
+              <td>
+                Fun&ccedil;&otilde;es de uma vari&aacute;vel real, limite e
+                continuidade, derivada, integral, aplica&ccedil;&otilde;es da
+                integral.
+              </td>
+            </tr>
+
+            <!-- dados do bloco -->
+
+            <tr>
+              <td colspan="2">
+                <table class="subFormulario" style="width: 100%">
+                  <caption>
+                    Cargas Hor&#225;rias
+                  </caption>
+
+                  <tr
+                    class="infoaltrem"
+                    style="
+                      background: #c8d5ec;
+                      font-weight: bold;
+                      color: black;
+                      padding-left: 40px;
+                    "
+                  >
+                    <td colspan="5">Aula</td>
+                  </tr>
+
+                  <tr class="linhaPar">
+                    <td class="box">
+                      Carga Hor&#225;ria de Aula Te&#243;rica - Presencial&nbsp
+                      <img
+                        src="/shared/img/geral/ajuda.gif"
+                        onMouseOver="document.getElementById('ajuda515526').style.visibility = 'visible';"
+                        onMouseOut="document.getElementById('ajuda515526').style.visibility = 'hidden';"
+                        border="0"
+                      />
+                      <span style="position: absolute">
+                        <div
+                          class="popUp"
+                          onMouseOut="document.getElementById('ajuda515526').style.visibility = 'hidden';"
+                          id="ajuda515526"
+                        >
+                          Tempo estimado a ser cumprido pelo(a) professor(a) e
+                          pelo(a) estudante exclusivamente em atividades de
+                          ensino-aprendizagem te&#243;ricas, na modalidade
+                          presencial, mediadas de forma expositiva e/ou
+                          dialogada pelo(a) professor(a), respons&#225;vel pelo
+                          acompanhamento discente integral e s&#237;ncrono em
+                          ambiente espec&#237;fico. (Ex.: sala de aula,
+                          audit&#243;rio, anfiteatro, museu etc.)
+                        </div>
+                      </span>
+                    </td>
+
+                    <td>30h</td>
+                  </tr>
+
+                  <tr class="linhaImpar">
+                    <td class="box">
+                      Carga Hor&#225;ria de Aula Pr&#225;tica - Presencial&nbsp
+                      <img
+                        src="/shared/img/geral/ajuda.gif"
+                        onMouseOver="document.getElementById('ajuda429008').style.visibility = 'visible';"
+                        onMouseOut="document.getElementById('ajuda429008').style.visibility = 'hidden';"
+                        border="0"
+                      />
+                      <span style="position: absolute">
+                        <div
+                          class="popUp"
+                          onMouseOut="document.getElementById('ajuda429008').style.visibility = 'hidden';"
+                          id="ajuda429008"
+                        >
+                          Tempo estimado a ser cumprido pelo(a) professor(a) e
+                          pelo(a) estudante exclusivamente em atividades de
+                          ensino-aprendizagem pr&#225;ticas, na modalidade
+                          presencial, mediadas de forma instrumental pelo(a)
+                          professor(a), respons&#225;vel pelas
+                          media&#231;&#245;es expositivas e/ou dialogadas
+                          complementares e pelo acompanhamento discente integral
+                          e s&#237;ncrono em ambiente espec&#237;fico. (Ex.:
+                          sala de aula, laborat&#243;rio, hospital, fazenda
+                          etc.)
+                        </div>
+                      </span>
+                    </td>
+
+                    <td>60h</td>
+                  </tr>
+
+                  <tr class="linhaPar">
+                    <td class="box">
+                      Carga Hor&#225;ria de Aula Extensionista - Presencial&nbsp
+                      <img
+                        src="/shared/img/geral/ajuda.gif"
+                        onMouseOver="document.getElementById('ajuda887653').style.visibility = 'visible';"
+                        onMouseOut="document.getElementById('ajuda887653').style.visibility = 'hidden';"
+                        border="0"
+                      />
+                      <span style="position: absolute">
+                        <div
+                          class="popUp"
+                          onMouseOut="document.getElementById('ajuda887653').style.visibility = 'hidden';"
+                          id="ajuda887653"
+                        >
+                          Tempo estimado a ser cumprido pelo(a) professor(a) e
+                          pelo(a) estudante exclusivamente em atividades de
+                          extens&#227;o, na modalidade presencial, assumindo
+                          este &#250;ltimo o papel de executor da
+                          a&#231;&#227;o.
+                        </div>
+                      </span>
+                    </td>
+
+                    <td>0h</td>
+                  </tr>
+
+                  <tr class="linhaImpar">
+                    <td
+                      class="box"
+                      style="
+                        background: #dedfe3;
+                        color: black;
+                        border-bottom: 1px solid white;
+                      "
+                    >
+                      <b>Subtotal de Carga Hor&#225;ria de Aula - Presencial</b
+                      >&nbsp
+                      <img
+                        src="/shared/img/geral/ajuda.gif"
+                        onMouseOver="document.getElementById('ajuda139874').style.visibility = 'visible';"
+                        onMouseOut="document.getElementById('ajuda139874').style.visibility = 'hidden';"
+                        border="0"
+                      />
+                      <span style="position: absolute">
+                        <div
+                          class="popUp"
+                          onMouseOut="document.getElementById('ajuda139874').style.visibility = 'hidden';"
+                          id="ajuda139874"
+                        >
+                          Subtotal do conjunto de cargas-hor&#225;rias de aulas
+                          presenciais do componente cumpridas na modalidade
+                          presencial, com exce&#231;&#227;o da Carga
+                          Hor&#225;ria de Orienta&#231;&#227;o Docente.
+                        </div>
+                      </span>
+                    </td>
+
+                    <td
+                      style="
+                        background: #dedfe3;
+                        font-weight: bold;
+                        color: black;
+                        border-bottom: 1px solid white;
+                      "
+                    >
+                      <b>90h</b>
+                    </td>
+                  </tr>
+
+                  <tr class="linhaPar">
+                    <td class="box">
+                      Carga Hor&#225;ria de Aula Te&#243;rica - a
+                      Dist&#226;ncia&nbsp
+                      <img
+                        src="/shared/img/geral/ajuda.gif"
+                        onMouseOver="document.getElementById('ajuda843541').style.visibility = 'visible';"
+                        onMouseOut="document.getElementById('ajuda843541').style.visibility = 'hidden';"
+                        border="0"
+                      />
+                      <span style="position: absolute">
+                        <div
+                          class="popUp"
+                          onMouseOut="document.getElementById('ajuda843541').style.visibility = 'hidden';"
+                          id="ajuda843541"
+                        >
+                          Tempo estimado a ser cumprido pelo(a) professor(a) e
+                          pelo(a) estudante exclusivamente em atividades de
+                          ensino-aprendizagem te&#243;ricas, na modalidade a
+                          dist&#226;ncia, mediadas de forma expositiva e/ou
+                          dialogada pelo(a) professor(a), respons&#225;vel pelo
+                          acompanhamento discente integral, s&#237;ncrono ou
+                          ass&#237;ncrono, em ambiente virtual de aprendizagem.
+                        </div>
+                      </span>
+                    </td>
+
+                    <td>0h</td>
+                  </tr>
+
+                  <tr class="linhaImpar">
+                    <td class="box">
+                      Carga Hor&#225;ria de Aula Pr&#225;tica - a
+                      Dist&#226;ncia&nbsp
+                      <img
+                        src="/shared/img/geral/ajuda.gif"
+                        onMouseOver="document.getElementById('ajuda383858').style.visibility = 'visible';"
+                        onMouseOut="document.getElementById('ajuda383858').style.visibility = 'hidden';"
+                        border="0"
+                      />
+                      <span style="position: absolute">
+                        <div
+                          class="popUp"
+                          onMouseOut="document.getElementById('ajuda383858').style.visibility = 'hidden';"
+                          id="ajuda383858"
+                        >
+                          Tempo estimado a ser cumprido pelo(a) professor(a) e
+                          pelo(a) estudante exclusivamente em atividades de
+                          ensino-aprendizagem pr&#225;ticas, na modalidade a
+                          dist&#226;ncia, mediadas de forma instrumental pelo(a)
+                          professor(a), respons&#225;vel pelas
+                          media&#231;&#245;es expositivas e/ou dialogadas
+                          complementares e pelo acompanhamento discente
+                          integral, s&#237;ncrono ou ass&#237;ncrono, em
+                          ambiente virtual de aprendizagem.
+                        </div>
+                      </span>
+                    </td>
+
+                    <td>0h</td>
+                  </tr>
+
+                  <tr class="linhaPar">
+                    <td class="box">
+                      Carga Hor&#225;ria de Aula Extensionista - a
+                      Dist&#226;ncia&nbsp
+                      <img
+                        src="/shared/img/geral/ajuda.gif"
+                        onMouseOver="document.getElementById('ajuda294589').style.visibility = 'visible';"
+                        onMouseOut="document.getElementById('ajuda294589').style.visibility = 'hidden';"
+                        border="0"
+                      />
+                      <span style="position: absolute">
+                        <div
+                          class="popUp"
+                          onMouseOut="document.getElementById('ajuda294589').style.visibility = 'hidden';"
+                          id="ajuda294589"
+                        >
+                          Tempo estimado a ser cumprido pelo(a) professor(a) e
+                          pelo(a) estudante exclusivamente em atividades de
+                          extens&#227;o, na modalidade a dist&#226;ncia,
+                          assumindo este &#250;ltimo o papel de executor da
+                          a&#231;&#227;o.
+                        </div>
+                      </span>
+                    </td>
+
+                    <td>0h</td>
+                  </tr>
+
+                  <tr class="linhaImpar">
+                    <td
+                      class="box"
+                      style="
+                        background: #dedfe3;
+                        color: black;
+                        border-bottom: 1px solid white;
+                      "
+                    >
+                      <b
+                        >Subtotal de Carga Hor&#225;ria de Aula - a
+                        Dist&#226;ncia</b
+                      >&nbsp
+                      <img
+                        src="/shared/img/geral/ajuda.gif"
+                        onMouseOver="document.getElementById('ajuda557880').style.visibility = 'visible';"
+                        onMouseOut="document.getElementById('ajuda557880').style.visibility = 'hidden';"
+                        border="0"
+                      />
+                      <span style="position: absolute">
+                        <div
+                          class="popUp"
+                          onMouseOut="document.getElementById('ajuda557880').style.visibility = 'hidden';"
+                          id="ajuda557880"
+                        >
+                          Subtotal do conjunto de cargas-hor&#225;rias do
+                          componente de aulas cumpridas na modalidade a
+                          dist&#226;ncia, com exce&#231;&#227;o da Carga
+                          Hor&#225;ria de Orienta&#231;&#227;o Docente.
+                        </div>
+                      </span>
+                    </td>
+
+                    <td
+                      style="
+                        background: #dedfe3;
+                        font-weight: bold;
+                        color: black;
+                        border-bottom: 1px solid white;
+                      "
+                    >
+                      <b>0h</b>
+                    </td>
+                  </tr>
+
+                  <tr class="linhaPar">
+                    <td
+                      class="box"
+                      style="
+                        background: #dedfe3;
+                        color: black;
+                        border-bottom: 1px solid white;
+                      "
+                    >
+                      <b> Total de Carga Hor&#225;ria de Aula do Componente</b
+                      >&nbsp
+                      <img
+                        src="/shared/img/geral/ajuda.gif"
+                        onMouseOver="document.getElementById('ajuda501810').style.visibility = 'visible';"
+                        onMouseOut="document.getElementById('ajuda501810').style.visibility = 'hidden';"
+                        border="0"
+                      />
+                      <span style="position: absolute">
+                        <div
+                          class="popUp"
+                          onMouseOut="document.getElementById('ajuda501810').style.visibility = 'hidden';"
+                          id="ajuda501810"
+                        >
+                          Total do conjunto de cargas-hor&#225;rias de aulas do
+                          componente cumpridas nas modalidades presencial e a
+                          dist&#226;ncia, com exce&#231;&#227;o da Carga
+                          Hor&#225;ria de Orienta&#231;&#227;o Docente.
+                        </div>
+                      </span>
+                    </td>
+
+                    <td
+                      style="
+                        background: #dedfe3;
+                        font-weight: bold;
+                        color: black;
+                        border-bottom: 1px solid white;
+                      "
+                    >
+                      <b>90h</b>
+                    </td>
+                  </tr>
+
+                  <tr class="linhaImpar">
+                    <td
+                      class="box"
+                      style="
+                        background: #dedfe3;
+                        color: black;
+                        border-bottom: 1px solid white;
+                      "
+                    >
+                      <b> Total de Carga Hor&#225;ria do Componente</b>&nbsp
+                      <img
+                        src="/shared/img/geral/ajuda.gif"
+                        onMouseOver="document.getElementById('ajuda248473').style.visibility = 'visible';"
+                        onMouseOut="document.getElementById('ajuda248473').style.visibility = 'hidden';"
+                        border="0"
+                      />
+                      <span style="position: absolute">
+                        <div
+                          class="popUp"
+                          onMouseOut="document.getElementById('ajuda248473').style.visibility = 'hidden';"
+                          id="ajuda248473"
+                        >
+                          Total do conjunto de cargas hor&#225;rias do
+                          componente cumpridas nas modalidades presencial e a
+                          dist&#226;ncia.
+                        </div>
+                      </span>
+                    </td>
+
+                    <td
+                      style="
+                        background: #dedfe3;
+                        font-weight: bold;
+                        color: black;
+                        border-bottom: 1px solid white;
+                      "
+                    >
+                      <b>90h</b>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <style>
+              .box {
+                display: flex;
+              }
+            </style>
+
+            <div class="infoAltRem">
+              <img src="/sigaa/img/destaque.png" /><span
+                style="font-weight: bold"
+                >: Livro associado a um material da biblioteca</span
+              >
+            </div>
+
+            <tr>
+              <td colspan="2">
+                <table class="subFormulario table table-striped" width="100%">
+                  <caption>
+                    Outros componentes que t&#234;m esse componente como
+                    equivalente
+                  </caption>
+                  <tbody>
+                    <tr class="linhaPar">
+                      <td>MAT0021 - MATEMATICA 1</td>
+                    </tr>
+
+                    <tr class="linhaImpar">
+                      <td>MAT0022 - MATEMATICA 1</td>
+                    </tr>
+
+                    <tr class="linhaPar">
+                      <td>MAT0024 - CALCULO 1</td>
+                    </tr>
+
+                    <tr class="linhaImpar">
+                      <td>MAT0137 - C&#193;LCULO 1 - SEMIPRESENCIAL</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td colspan="2">
+                <table class="subFormulario table table-striped" width="100%">
+                  <caption>
+                    Outros componentes que t&#234;m esse componente como
+                    pr&#233;-requisito
+                  </caption>
+                  <tbody>
+                    <tr class="linhaPar">
+                      <td>
+                        IFD0012 - FUNDAMENTOS MATEM&#193;TICOS DA F&#205;SICA B
+                      </td>
+                    </tr>
+
+                    <tr class="linhaImpar">
+                      <td>IGD0108 - METODOS ESTATISTICOS EM GEOLOGIA</td>
+                    </tr>
+
+                    <tr class="linhaPar">
+                      <td>MAT0026 - C&#193;LCULO 2</td>
+                    </tr>
+
+                    <tr class="linhaImpar">
+                      <td>MAT0039 - ALGEBRA LINEAR</td>
+                    </tr>
+
+                    <tr class="linhaPar">
+                      <td>EST0023 - PROBABILIDADE E ESTAT&#205;STICA</td>
+                    </tr>
+
+                    <tr class="linhaImpar">
+                      <td>EST0027 - BIOESTAT&#205;STICA</td>
+                    </tr>
+
+                    <tr class="linhaPar">
+                      <td>EST0061 - INTRODUCAO A ESTATISTICA ECONOMICA</td>
+                    </tr>
+
+                    <tr class="linhaImpar">
+                      <td>IQD0184 - ELEMENTOS DE ESPECTROSCOPIA MOLECULAR</td>
+                    </tr>
+
+                    <tr class="linhaPar">
+                      <td>IFD0340 - FUNDAMENTOS DE F&#205;SICA</td>
+                    </tr>
+
+                    <tr class="linhaImpar">
+                      <td>IFD0420 - TERMODIN&#194;MICA</td>
+                    </tr>
+
+                    <tr class="linhaPar">
+                      <td>FGA0126 - C&#193;LCULO PARA ENGENHARIA 2</td>
+                    </tr>
+
+                    <tr class="linhaImpar">
+                      <td>JOR0083 - COMUNICA&#199;&#195;O COMUNIT&#193;RIA</td>
+                    </tr>
+
+                    <tr class="linhaPar">
+                      <td>ENC0113 - MECANICA DOS SISTEMAS RIGIDOS</td>
+                    </tr>
+
+                    <tr class="linhaImpar">
+                      <td>ADM0192 - CALCULO FINANCEIRO</td>
+                    </tr>
+
+                    <tr class="linhaPar">
+                      <td>
+                        FGA0157 - PROBABILIDADE E ESTAT&#205;STICA APLICADO A
+                        ENGENHARIA
+                      </td>
+                    </tr>
+
+                    <tr class="linhaImpar">
+                      <td>MAT0138 - C&#193;LCULO 2 - SEMIPRESENCIAL</td>
+                    </tr>
+
+                    <tr class="linhaPar">
+                      <td>ECO0272 - MICROECONOMIA AMBIENTAL</td>
+                    </tr>
+
+                    <tr class="linhaImpar">
+                      <td>
+                        IQD0295 - FUNDAMENTOS DE MATEM&#193;TICA PARA
+                        QU&#205;MICA
+                      </td>
+                    </tr>
+
+                    <tr class="linhaPar">
+                      <td>
+                        FAV0349 - PESQUISA OPERACIONAL EM SISTEMAS
+                        AGROINDUSTRIAIS
+                      </td>
+                    </tr>
+
+                    <tr class="linhaImpar">
+                      <td>MAT0373 - MONITORIA EM C&#193;LCULO 1</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td colspan="2">
+                <table class="subFormulario table table-striped" width="100%">
+                  <caption>
+                    Hist&#243;rico de Equival&#234;ncias
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th class="colExpressao">
+                        Express&#227;o de Equival&#234;ncia
+                      </th>
+                      <th class="colAtivo">Ativa</th>
+                      <th class="colData">In&#237;cio da Vig&#234;ncia</th>
+                      <th class="colData">Fim da Vig&#234;ncia</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Tarefa #8826 UnB - Adiciona condicao equivalencia.id == componenteCurricularGraduacao.obj.detalhes.id ? 'destaqueLinha' : na propriedade class -->
+                    <tr class="destaqueLinha">
+                      <td>
+                        ( (
+                        <acronym
+                          title="MAT0137 - C&#193;LCULO 1 - SEMIPRESENCIAL"
+                          >MAT0137</acronym
+                        >
+                        ) OU (
+                        <acronym title="MAT0024 - CALCULO 1">MAT0024</acronym> )
+                        )
+                      </td>
+                      <td>ATIVO</td>
+                      <td>01/08/2019</td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td colspan="2">
+                <table
+                  id="listaCurriculosComponente"
+                  class="subFormulario"
+                  width="100%"
+                >
+                  <caption>
+                    Curr&#237;culos
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th class="colCodigo" scope="col">C&#243;digo</th>
+                      <th class="colCodigo" scope="col">
+                        Ano.Per&#237;odo de Implementa&#231;&#227;o
+                      </th>
+                      <th class="colMatriz" scope="col">Matriz Curricular</th>
+                      <th class="colObg" scope="col">Obrigat&#243;ria</th>
+                      <th class="colPeriodo" scope="col">Per&#237;odo</th>
+                      <th class="colAtivo" scope="col">Ativo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">5673/-2</td>
+                      <td class="colCodigo">2010.1</td>
+                      <td class="colMatriz">
+                        ARQUITETURA E URBANISMO/FAU - Arquiteto e Urbanista -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8591/1</td>
+                      <td class="colCodigo">2019.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIA POL&Iacute;TICA/IPOL - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">2712/1</td>
+                      <td class="colCodigo">2017.2</td>
+                      <td class="colMatriz">
+                        PSICOLOGIA/IPD - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6351/2</td>
+                      <td class="colCodigo">2020.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA DE REDES DE COMUNICA&Ccedil;&Atilde;O/ENE -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">3417/-2</td>
+                      <td class="colCodigo">2019.2</td>
+                      <td class="colMatriz">
+                        HIST&Oacute;RIA/HIS - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">3425/-7</td>
+                      <td class="colCodigo">2015.1</td>
+                      <td class="colMatriz">
+                        HIST&Oacute;RIA/HIS - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">60810/1</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        EDUCA&Ccedil;&Atilde;O F&Iacute;SICA/FEF - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">2216/1</td>
+                      <td class="colCodigo">2017.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS BIOL&Oacute;GICAS/ICB - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1236/1</td>
+                      <td class="colCodigo">2018.2</td>
+                      <td class="colMatriz">
+                        GEOF&Iacute;SICA/IGD - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1716/2</td>
+                      <td class="colCodigo">2021.2</td>
+                      <td class="colMatriz">
+                        ESTAT&Iacute;STICA/EST - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6351/-3</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA DE REDES DE COMUNICA&Ccedil;&Atilde;O/ENE -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">7161/1</td>
+                      <td class="colCodigo">2020.1</td>
+                      <td class="colMatriz">
+                        SA&Uacute;DE COLETIVA/DSC - Bacharelado - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">850/2</td>
+                      <td class="colCodigo">2021.2</td>
+                      <td class="colMatriz">
+                        JORNALISMO/FAC/JOR - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">7145/1</td>
+                      <td class="colCodigo">2018.1</td>
+                      <td class="colMatriz">
+                        TERAPIA OCUPACIONAL/FCE - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1741/1</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA DE COMPUTA&Ccedil;&Atilde;O/CIC - Bacharelado
+                        - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6424/1</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA MEC&Acirc;NICA/ENM - Engenheiro
+                        Mec&acirc;nico - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1589/2</td>
+                      <td class="colCodigo">2024.1</td>
+                      <td class="colMatriz">
+                        QU&Iacute;MICA TECNOL&Oacute;GICA/IQD - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">7013/1</td>
+                      <td class="colCodigo">2016.2</td>
+                      <td class="colMatriz">
+                        FARM&Aacute;CIA/FCE - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">7153/1</td>
+                      <td class="colCodigo">2019.1</td>
+                      <td class="colMatriz">
+                        SA&Uacute;DE COLETIVA/FCE - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">7072/1</td>
+                      <td class="colCodigo">2020.1</td>
+                      <td class="colMatriz">
+                        ENFERMAGEM/FCE - Enfermeiro - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">3841/1</td>
+                      <td class="colCodigo">2014.1</td>
+                      <td class="colMatriz">
+                        GEOGRAFIA/GEA - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">3859/1</td>
+                      <td class="colCodigo">2017.2</td>
+                      <td class="colMatriz">
+                        GEOGRAFIA/GEA - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">3859/-2</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        GEOGRAFIA/GEA - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6254/2</td>
+                      <td class="colCodigo">2021.2</td>
+                      <td class="colMatriz">
+                        ENGENHARIA AMBIENTAL/ENC - Engenheiro - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1325/1</td>
+                      <td class="colCodigo">2017.2</td>
+                      <td class="colMatriz">
+                        MATEM&Aacute;TICA/MAT - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1325/-3</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        MATEM&Aacute;TICA/MAT - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1325/-2</td>
+                      <td class="colCodigo">2016.2</td>
+                      <td class="colMatriz">
+                        MATEM&Aacute;TICA/MAT - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1325/-4</td>
+                      <td class="colCodigo">2014.1</td>
+                      <td class="colMatriz">
+                        MATEM&Aacute;TICA/MAT - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1368/1</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        MATEM&Aacute;TICA/MAT - Licenciatura - Presencial - N
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1368/-2</td>
+                      <td class="colCodigo">2014.1</td>
+                      <td class="colMatriz">
+                        MATEM&Aacute;TICA/MAT - Licenciatura - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6912/1</td>
+                      <td class="colCodigo">2018.2</td>
+                      <td class="colMatriz">
+                        ENGENHARIA MECATR&Ocirc;NICA - CONTROLE E
+                        AUTOMA&Ccedil;&Atilde;O/FTD - Engenheiro de Controle e
+                        Automa&ccedil;&atilde;o - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">3417/1</td>
+                      <td class="colCodigo">2020.1</td>
+                      <td class="colMatriz">
+                        HIST&Oacute;RIA/HIS - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">7510/-2</td>
+                      <td class="colCodigo">2012.1</td>
+                      <td class="colMatriz">
+                        NUTRI&Ccedil;&Atilde;O/NUT - Nutricionista - Presencial
+                        - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6351/1</td>
+                      <td class="colCodigo">2018.2</td>
+                      <td class="colMatriz">
+                        ENGENHARIA DE REDES DE COMUNICA&Ccedil;&Atilde;O/ENE -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6351/-2</td>
+                      <td class="colCodigo">2017.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA DE REDES DE COMUNICA&Ccedil;&Atilde;O/ENE -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">7111/2</td>
+                      <td class="colCodigo">2021.1</td>
+                      <td class="colMatriz">
+                        MEDICINA/FMD - M&eacute;dico - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6335/2</td>
+                      <td class="colCodigo">2022.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA EL&Eacute;TRICA/ENE - Engenheiro Eletricista
+                        - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6335/1</td>
+                      <td class="colCodigo">2019.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA EL&Eacute;TRICA/ENE - Engenheiro Eletricista
+                        - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6262/1</td>
+                      <td class="colCodigo">2014.2</td>
+                      <td class="colMatriz">
+                        GEST&Atilde;O DE AGRONEG&Oacute;CIOS/FAV - Bacharelado -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">2291/-2</td>
+                      <td class="colCodigo">2014.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS NATURAIS/FUP - Licenciatura - Presencial
+                        - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1147/-4</td>
+                      <td class="colCodigo">2014.2</td>
+                      <td class="colMatriz">
+                        F&Iacute;SICA/IFD - Licenciatura - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">60836/1</td>
+                      <td class="colCodigo">2018.2</td>
+                      <td class="colMatriz">
+                        ENGENHARIA AEROESPACIAL/FGA - Bacharelado - Presencial -
+                        D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">3417/-9</td>
+                      <td class="colCodigo">2012.1</td>
+                      <td class="colMatriz">
+                        HIST&Oacute;RIA/HIS - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8117/-6</td>
+                      <td class="colCodigo">2014.1</td>
+                      <td class="colMatriz">
+                        ADMINISTRA&Ccedil;&Atilde;O/ADM - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8184/-4</td>
+                      <td class="colCodigo">2010.2</td>
+                      <td class="colMatriz">
+                        GEST&Atilde;O DE POL&Iacute;TICAS P&Uacute;BLICAS/GPP -
+                        Bacharelado - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6181/-4</td>
+                      <td class="colCodigo">2010.1</td>
+                      <td class="colMatriz">
+                        MEDICINA VETERIN&Aacute;RIA/FAV - M&eacute;dico
+                        Veterin&aacute;rio - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6220/-2</td>
+                      <td class="colCodigo">2009.2</td>
+                      <td class="colMatriz">
+                        ENGENHARIA CIVIL/ENC - Engenheiro Civil - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">2721/-6</td>
+                      <td class="colCodigo">2008.1</td>
+                      <td class="colMatriz">
+                        PSICOLOGIA/IPD - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">2291/1</td>
+                      <td class="colCodigo">2020.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS NATURAIS/FUP - Licenciatura - Presencial
+                        - N
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">2</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">2721/-3</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        PSICOLOGIA/IPD - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">2712/-2</td>
+                      <td class="colCodigo">2017.1</td>
+                      <td class="colMatriz">
+                        PSICOLOGIA/IPD - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6181/1</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        MEDICINA VETERIN&Aacute;RIA/FAV - M&eacute;dico
+                        Veterin&aacute;rio - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">5380/-5</td>
+                      <td class="colCodigo">2006.2</td>
+                      <td class="colMatriz">
+                        DESENHO INDUSTRIAL - PROGRAMA&Ccedil;&Atilde;O
+                        VISUAL/DIN - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8222/-4</td>
+                      <td class="colCodigo">2011.2</td>
+                      <td class="colMatriz">
+                        BIBLIOTECONOMIA/FCI - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6157/1</td>
+                      <td class="colCodigo">2017.2</td>
+                      <td class="colMatriz">
+                        GEST&Atilde;O AMBIENTAL/FUP - Bacharelado - Presencial -
+                        N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8591/-3</td>
+                      <td class="colCodigo">2011.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIA POL&Iacute;TICA/IPOL - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6335/-4</td>
+                      <td class="colCodigo">2015.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA EL&Eacute;TRICA/ENE - Engenheiro Eletricista
+                        - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6009/1</td>
+                      <td class="colCodigo">2018.2</td>
+                      <td class="colMatriz">
+                        ENGENHARIA/FGA - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">7111/-3</td>
+                      <td class="colCodigo">2010.1</td>
+                      <td class="colMatriz">
+                        MEDICINA/FMD - M&eacute;dico - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">2283/-3</td>
+                      <td class="colCodigo">2013.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS NATURAIS/FUP - Licenciatura - Presencial
+                        - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">5380/-3</td>
+                      <td class="colCodigo">2012.2</td>
+                      <td class="colMatriz">
+                        DESIGN - PROGRAMA&Ccedil;&Atilde;O VISUAL/DIN -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6521/-3</td>
+                      <td class="colCodigo">2013.2</td>
+                      <td class="colMatriz">
+                        ENGENHARIA FLORESTAL/EFL - Engenheiro Florestal -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">3417/-3</td>
+                      <td class="colCodigo">2018.1</td>
+                      <td class="colMatriz">
+                        HIST&Oacute;RIA/HIS - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">2739/-2</td>
+                      <td class="colCodigo">2017.1</td>
+                      <td class="colMatriz">
+                        PSICOLOGIA/IPD - Psic&oacute;logo - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1112/1</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        F&Iacute;SICA/IFD - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">2259/-2</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS BIOL&Oacute;GICAS/ICB - Licenciatura -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">3727/-2</td>
+                      <td class="colCodigo">2005.1</td>
+                      <td class="colMatriz">
+                        RELA&Ccedil;&Otilde;ES INTERNACIONAIS/IREL - Bacharelado
+                        - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8150/1</td>
+                      <td class="colCodigo">2018.2</td>
+                      <td class="colMatriz">
+                        ADMINISTRA&Ccedil;&Atilde;O/ADM - Bacharelado -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">7510/1</td>
+                      <td class="colCodigo">2019.1</td>
+                      <td class="colMatriz">
+                        NUTRI&Ccedil;&Atilde;O/NUT - Nutricionista - Presencial
+                        - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6289/-2</td>
+                      <td class="colCodigo">2016.2</td>
+                      <td class="colMatriz">
+                        ENGENHARIA DE ENERGIA/FGA - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">2321/-1</td>
+                      <td class="colCodigo">2009.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS AMBIENTAIS/IGD - Bacharelado - Presencial
+                        - POL&Iacute;TICAS E SUSTENTABILIDADE - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6165/-4</td>
+                      <td class="colCodigo">2004.1</td>
+                      <td class="colMatriz">
+                        AGRONOMIA/FAV - Engenheiro Agr&ocirc;nomo - Presencial -
+                        D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">2712/-3</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        PSICOLOGIA/IPD - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">850/-2</td>
+                      <td class="colCodigo">2017.1</td>
+                      <td class="colMatriz">
+                        JORNALISMO/FAC/JOR - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1325/-5</td>
+                      <td class="colCodigo">2005.1</td>
+                      <td class="colMatriz">
+                        MATEM&Aacute;TICA/MAT - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6297/2</td>
+                      <td class="colCodigo">2021.2</td>
+                      <td class="colMatriz">
+                        ENGENHARIA AUTOMOTIVA/FGA - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8184/-3</td>
+                      <td class="colCodigo">2012.1</td>
+                      <td class="colMatriz">
+                        GEST&Atilde;O DE POL&Iacute;TICAS P&Uacute;BLICAS/GPP -
+                        Bacharelado - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8516/-2</td>
+                      <td class="colCodigo">2017.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS CONT&Aacute;BEIS/CCA - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">2259/-6</td>
+                      <td class="colCodigo">2012.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS BIOL&Oacute;GICAS/ICB - Licenciatura -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">7609/-2</td>
+                      <td class="colCodigo">2013.2</td>
+                      <td class="colMatriz">
+                        FARM&Aacute;CIA/FCS - Bacharelado - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8150/-4</td>
+                      <td class="colCodigo">2014.1</td>
+                      <td class="colMatriz">
+                        ADMINISTRA&Ccedil;&Atilde;O/ADM - Bacharelado -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">5380/-4</td>
+                      <td class="colCodigo">2012.1</td>
+                      <td class="colMatriz">
+                        DESENHO INDUSTRIAL - PROGRAMA&Ccedil;&Atilde;O
+                        VISUAL/DIN - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">7013/-3</td>
+                      <td class="colCodigo">2008.2</td>
+                      <td class="colMatriz">
+                        FARM&Aacute;CIA/FCE - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8117/-7</td>
+                      <td class="colCodigo">2011.1</td>
+                      <td class="colMatriz">
+                        ADMINISTRA&Ccedil;&Atilde;O/ADM - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1856/-5</td>
+                      <td class="colCodigo">2012.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIA DA COMPUTA&Ccedil;&Atilde;O/CIC -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8362/1</td>
+                      <td class="colCodigo">2019.2</td>
+                      <td class="colMatriz">
+                        COMUNICA&Ccedil;&Atilde;O SOCIAL -
+                        COMUNICA&Ccedil;&Atilde;O ORGANIZACIONAL/FAC/COM -
+                        Bacharelado - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">2739/-4</td>
+                      <td class="colCodigo">2014.1</td>
+                      <td class="colMatriz">
+                        PSICOLOGIA/IPD - Psic&oacute;logo - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1228/1</td>
+                      <td class="colCodigo">2016.2</td>
+                      <td class="colMatriz">
+                        GEOLOGIA/IGD - Ge&oacute;logo - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8885/1</td>
+                      <td class="colCodigo">2019.2</td>
+                      <td class="colMatriz">
+                        DIREITO/FDD - Bacharelado - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6521/-5</td>
+                      <td class="colCodigo">2005.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA FLORESTAL/EFL - Engenheiro Florestal -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">5398/-2</td>
+                      <td class="colCodigo">2015.2</td>
+                      <td class="colMatriz">
+                        DESIGN - PROJETO DO PRODUTO/DIN - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1341/-2</td>
+                      <td class="colCodigo">2014.1</td>
+                      <td class="colMatriz">
+                        MATEM&Aacute;TICA/MAT - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8354/-2</td>
+                      <td class="colCodigo">2016.2</td>
+                      <td class="colMatriz">
+                        COMUNICA&Ccedil;&Atilde;O SOCIAL - AUDIOVISUAL/FAC/DAP -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">7510/-3</td>
+                      <td class="colCodigo">2008.1</td>
+                      <td class="colMatriz">
+                        NUTRI&Ccedil;&Atilde;O/NUT - Nutricionista - Presencial
+                        - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">5380/-2</td>
+                      <td class="colCodigo">2015.2</td>
+                      <td class="colMatriz">
+                        DESIGN - PROGRAMA&Ccedil;&Atilde;O VISUAL/DIN -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">7137/1</td>
+                      <td class="colCodigo">2017.2</td>
+                      <td class="colMatriz">
+                        FISIOTERAPIA/FCE - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1716/1</td>
+                      <td class="colCodigo">2019.1</td>
+                      <td class="colMatriz">
+                        ESTAT&Iacute;STICA/EST - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8583/-2</td>
+                      <td class="colCodigo">2017.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS CONT&Aacute;BEIS/CCA - Bacharelado -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">7153/-2</td>
+                      <td class="colCodigo">2016.2</td>
+                      <td class="colMatriz">
+                        SA&Uacute;DE COLETIVA/FCE - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6165/-5</td>
+                      <td class="colCodigo">2000.2</td>
+                      <td class="colMatriz">
+                        AGRONOMIA/FAV - Engenheiro Agr&ocirc;nomo - Presencial -
+                        D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8486/-3</td>
+                      <td class="colCodigo">2017.1</td>
+                      <td class="colMatriz">
+                        DIREITO/FDD - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">3522/-2</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        SERVI&Ccedil;O SOCIAL/SER - Bacharelado - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1341/-3</td>
+                      <td class="colCodigo">2011.2</td>
+                      <td class="colMatriz">
+                        MATEM&Aacute;TICA/MAT - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1147/-5</td>
+                      <td class="colCodigo">2006.1</td>
+                      <td class="colMatriz">
+                        F&Iacute;SICA/IFD - Licenciatura - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8311/1</td>
+                      <td class="colCodigo">2016.2</td>
+                      <td class="colMatriz">
+                        COMUNICA&Ccedil;&Atilde;O SOCIAL - JORNALISMO/FAC/JOR -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">2216/-2</td>
+                      <td class="colCodigo">2017.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS BIOL&Oacute;GICAS/ICB - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8117/-2</td>
+                      <td class="colCodigo">2018.2</td>
+                      <td class="colMatriz">
+                        ADMINISTRA&Ccedil;&Atilde;O/ADM - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">3522/-3</td>
+                      <td class="colCodigo">2014.2</td>
+                      <td class="colMatriz">
+                        SERVI&Ccedil;O SOCIAL/SER - Bacharelado - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">7692/-2</td>
+                      <td class="colCodigo">2013.2</td>
+                      <td class="colMatriz">
+                        FARM&Aacute;CIA/FCS - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6335/-2</td>
+                      <td class="colCodigo">2018.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA EL&Eacute;TRICA/ENE - Engenheiro Eletricista
+                        - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8184/1</td>
+                      <td class="colCodigo">2019.2</td>
+                      <td class="colMatriz">
+                        GEST&Atilde;O DE POL&Iacute;TICAS P&Uacute;BLICAS/GPP -
+                        Bacharelado - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1112/-3</td>
+                      <td class="colCodigo">2014.1</td>
+                      <td class="colMatriz">
+                        F&Iacute;SICA/IFD - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8885/-3</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        DIREITO/FDD - Bacharelado - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">3417/-7</td>
+                      <td class="colCodigo">2015.1</td>
+                      <td class="colMatriz">
+                        HIST&Oacute;RIA/HIS - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8583/-3</td>
+                      <td class="colCodigo">2012.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS CONT&Aacute;BEIS/CCA - Bacharelado -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">5380/1</td>
+                      <td class="colCodigo">2017.2</td>
+                      <td class="colMatriz">
+                        DESIGN - PROGRAMA&Ccedil;&Atilde;O VISUAL/DIN -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1741/-2</td>
+                      <td class="colCodigo">2009.2</td>
+                      <td class="colMatriz">
+                        ENGENHARIA DE COMPUTA&Ccedil;&Atilde;O/CIC - Bacharelado
+                        - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">3514/-3</td>
+                      <td class="colCodigo">2008.2</td>
+                      <td class="colMatriz">
+                        SERVI&Ccedil;O SOCIAL/SER - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">2259/-3</td>
+                      <td class="colCodigo">2015.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS BIOL&Oacute;GICAS/ICB - Licenciatura -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">3344/-3</td>
+                      <td class="colCodigo">2013.2</td>
+                      <td class="colMatriz">
+                        FILOSOFIA/FIL - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">5398/1</td>
+                      <td class="colCodigo">2017.2</td>
+                      <td class="colMatriz">
+                        DESIGN - PROJETO DO PRODUTO/DIN - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">7609/-3</td>
+                      <td class="colCodigo">2010.2</td>
+                      <td class="colMatriz">
+                        FARM&Aacute;CIA/FCS - Bacharelado - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">3425/-3</td>
+                      <td class="colCodigo">2018.1</td>
+                      <td class="colMatriz">
+                        HIST&Oacute;RIA/HIS - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1589/-2</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        QU&Iacute;MICA TECNOL&Oacute;GICA/IQD - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1856/1</td>
+                      <td class="colCodigo">2018.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIA DA COMPUTA&Ccedil;&Atilde;O/CIC -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">2216/-7</td>
+                      <td class="colCodigo">2005.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS BIOL&Oacute;GICAS/ICB - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">3514/1</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        SERVI&Ccedil;O SOCIAL/SER - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">3425/-9</td>
+                      <td class="colCodigo">2012.1</td>
+                      <td class="colMatriz">
+                        HIST&Oacute;RIA/HIS - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">3425/-4</td>
+                      <td class="colCodigo">2017.2</td>
+                      <td class="colMatriz">
+                        HIST&Oacute;RIA/HIS - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1856/-6</td>
+                      <td class="colCodigo">2012.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIA DA COMPUTA&Ccedil;&Atilde;O/CIC -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6254/-2</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA AMBIENTAL/ENC - Engenheiro - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">7072/-2</td>
+                      <td class="colCodigo">2018.1</td>
+                      <td class="colMatriz">
+                        ENFERMAGEM/FCE - Enfermeiro - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8222/1</td>
+                      <td class="colCodigo">2019.1</td>
+                      <td class="colMatriz">
+                        BIBLIOTECONOMIA/FCI - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">5126/1</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        ARQUITETURA E URBANISMO/FAU - Arquiteto e Urbanista -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1716/-4</td>
+                      <td class="colCodigo">1997.2</td>
+                      <td class="colMatriz">
+                        ESTAT&Iacute;STICA/EST - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">3336/-5</td>
+                      <td class="colCodigo">2012.1</td>
+                      <td class="colMatriz">
+                        FILOSOFIA/FIL - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6131/-2</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA ELETR&Ocirc;NICA/FGA - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1147/1</td>
+                      <td class="colCodigo">2018.2</td>
+                      <td class="colMatriz">
+                        F&Iacute;SICA/IFD - Licenciatura - Presencial - N
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">3476/-2</td>
+                      <td class="colCodigo">2017.1</td>
+                      <td class="colMatriz">
+                        HIST&Oacute;RIA/HIS - Licenciatura - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8354/-5</td>
+                      <td class="colCodigo">2011.1</td>
+                      <td class="colMatriz">
+                        COMUNICA&Ccedil;&Atilde;O SOCIAL - AUDIOVISUAL/FAC/DAP -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">3417/-8</td>
+                      <td class="colCodigo">2013.1</td>
+                      <td class="colMatriz">
+                        HIST&Oacute;RIA/HIS - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">2259/-5</td>
+                      <td class="colCodigo">2013.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS BIOL&Oacute;GICAS/ICB - Licenciatura -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6521/-4</td>
+                      <td class="colCodigo">2012.2</td>
+                      <td class="colMatriz">
+                        ENGENHARIA FLORESTAL/EFL - Engenheiro Florestal -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">7013/-2</td>
+                      <td class="colCodigo">2014.2</td>
+                      <td class="colMatriz">
+                        FARM&Aacute;CIA/FCE - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">7145/-2</td>
+                      <td class="colCodigo">2015.2</td>
+                      <td class="colMatriz">
+                        TERAPIA OCUPACIONAL/FCE - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">3221/-5</td>
+                      <td class="colCodigo">2007.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS ECON&Ocirc;MICAS/ECO - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1147/-2</td>
+                      <td class="colCodigo">2017.1</td>
+                      <td class="colMatriz">
+                        F&Iacute;SICA/IFD - Licenciatura - Presencial - N
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8486/-2</td>
+                      <td class="colCodigo">2017.2</td>
+                      <td class="colMatriz">
+                        DIREITO/FDD - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6220/1</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA CIVIL/ENC - Engenheiro Civil - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8362/-2</td>
+                      <td class="colCodigo">2016.2</td>
+                      <td class="colMatriz">
+                        COMUNICA&Ccedil;&Atilde;O SOCIAL -
+                        COMUNICA&Ccedil;&Atilde;O ORGANIZACIONAL/FAC/COM -
+                        Bacharelado - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6017/-3</td>
+                      <td class="colCodigo">2009.2</td>
+                      <td class="colMatriz">
+                        ENGENHARIA DE PRODU&Ccedil;&Atilde;O/EPR - Bacharelado -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1449/-2</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        QU&Iacute;MICA/IQD - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8117/-4</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        ADMINISTRA&Ccedil;&Atilde;O/ADM - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6912/-3</td>
+                      <td class="colCodigo">2005.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA MECATR&Ocirc;NICA - CONTROLE E
+                        AUTOMA&Ccedil;&Atilde;O/FTD - Engenheiro de Controle e
+                        Automa&ccedil;&atilde;o - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8150/-5</td>
+                      <td class="colCodigo">2011.1</td>
+                      <td class="colMatriz">
+                        ADMINISTRA&Ccedil;&Atilde;O/ADM - Bacharelado -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8354/1</td>
+                      <td class="colCodigo">2019.2</td>
+                      <td class="colMatriz">
+                        COMUNICA&Ccedil;&Atilde;O SOCIAL - AUDIOVISUAL/FAC/DAP -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">2739/1</td>
+                      <td class="colCodigo">2017.2</td>
+                      <td class="colMatriz">
+                        PSICOLOGIA/IPD - Psic&oacute;logo - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">60844/-2</td>
+                      <td class="colCodigo">2012.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA QU&Iacute;MICA/IQD - Bacharelado - Presencial
+                        - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">2721/-4</td>
+                      <td class="colCodigo">2014.1</td>
+                      <td class="colMatriz">
+                        PSICOLOGIA/IPD - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6165/-2</td>
+                      <td class="colCodigo">2011.2</td>
+                      <td class="colMatriz">
+                        AGRONOMIA/FAV - Engenheiro Agr&ocirc;nomo - Presencial -
+                        D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">7412/-2</td>
+                      <td class="colCodigo">2010.2</td>
+                      <td class="colMatriz">
+                        ENFERMAGEM/ENF - Enfermeiro - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8117/-3</td>
+                      <td class="colCodigo">2017.2</td>
+                      <td class="colMatriz">
+                        ADMINISTRA&Ccedil;&Atilde;O/ADM - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1856/-7</td>
+                      <td class="colCodigo">2011.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIA DA COMPUTA&Ccedil;&Atilde;O/CIC -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1856/-4</td>
+                      <td class="colCodigo">2015.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIA DA COMPUTA&Ccedil;&Atilde;O/CIC -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">3425/-6</td>
+                      <td class="colCodigo">2016.2</td>
+                      <td class="colMatriz">
+                        HIST&Oacute;RIA/HIS - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">2283/1</td>
+                      <td class="colCodigo">2020.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS NATURAIS/FUP - Licenciatura - Presencial
+                        - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">2</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6181/-3</td>
+                      <td class="colCodigo">2012.1</td>
+                      <td class="colMatriz">
+                        MEDICINA VETERIN&Aacute;RIA/FAV - M&eacute;dico
+                        Veterin&aacute;rio - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6157/-2</td>
+                      <td class="colCodigo">2008.2</td>
+                      <td class="colMatriz">
+                        GEST&Atilde;O AMBIENTAL/FUP - Bacharelado - Presencial -
+                        N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8338/-3</td>
+                      <td class="colCodigo">2016.2</td>
+                      <td class="colMatriz">
+                        COMUNICA&Ccedil;&Atilde;O SOCIAL - PUBLICIDADE E
+                        PROPAGANDA/FAC/DAP - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">2216/-6</td>
+                      <td class="colCodigo">2013.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS BIOL&Oacute;GICAS/ICB - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1112/-4</td>
+                      <td class="colCodigo">2007.1</td>
+                      <td class="colMatriz">
+                        F&Iacute;SICA/IFD - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6017/2</td>
+                      <td class="colCodigo">2021.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA DE PRODU&Ccedil;&Atilde;O/EPR - Bacharelado -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6289/1</td>
+                      <td class="colCodigo">2018.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA DE ENERGIA/FGA - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6017/-2</td>
+                      <td class="colCodigo">2014.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA DE PRODU&Ccedil;&Atilde;O/EPR - Bacharelado -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1368/-3</td>
+                      <td class="colCodigo">2005.1</td>
+                      <td class="colMatriz">
+                        MATEM&Aacute;TICA/MAT - Licenciatura - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">3841/-2</td>
+                      <td class="colCodigo">2005.1</td>
+                      <td class="colMatriz">
+                        GEOGRAFIA/GEA - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8583/2</td>
+                      <td class="colCodigo">2021.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS CONT&Aacute;BEIS/CCA - Bacharelado -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">60836/2</td>
+                      <td class="colCodigo">2021.2</td>
+                      <td class="colMatriz">
+                        ENGENHARIA AEROESPACIAL/FGA - Bacharelado - Presencial -
+                        D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6351/-5</td>
+                      <td class="colCodigo">2005.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA DE REDES DE COMUNICA&Ccedil;&Atilde;O/ENE -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6335/-3</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA EL&Eacute;TRICA/ENE - Engenheiro Eletricista
+                        - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8885/-2</td>
+                      <td class="colCodigo">2017.2</td>
+                      <td class="colMatriz">
+                        DIREITO/FDD - Bacharelado - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">2771/1</td>
+                      <td class="colCodigo">2015.2</td>
+                      <td class="colMatriz">
+                        BIOTECNOLOGIA/ICB - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1899/1</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        COMPUTA&Ccedil;&Atilde;O/CIC - Licenciatura - Presencial
+                        - N
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">2</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1589/1</td>
+                      <td class="colCodigo">2018.2</td>
+                      <td class="colMatriz">
+                        QU&Iacute;MICA TECNOL&Oacute;GICA/IQD - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6297/1</td>
+                      <td class="colCodigo">2018.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA AUTOMOTIVA/FGA - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">3417/-10</td>
+                      <td class="colCodigo">2010.2</td>
+                      <td class="colMatriz">
+                        HIST&Oacute;RIA/HIS - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">3727/1</td>
+                      <td class="colCodigo">2017.2</td>
+                      <td class="colMatriz">
+                        RELA&Ccedil;&Otilde;ES INTERNACIONAIS/IREL - Bacharelado
+                        - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6220/-3</td>
+                      <td class="colCodigo">2005.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA CIVIL/ENC - Engenheiro Civil - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1856/2</td>
+                      <td class="colCodigo">2021.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIA DA COMPUTA&Ccedil;&Atilde;O/CIC -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">3417/-6</td>
+                      <td class="colCodigo">2016.2</td>
+                      <td class="colMatriz">
+                        HIST&Oacute;RIA/HIS - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">60844/1</td>
+                      <td class="colCodigo">2015.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA QU&Iacute;MICA/IQD - Bacharelado - Presencial
+                        - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">3425/-5</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        HIST&Oacute;RIA/HIS - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">2739/-5</td>
+                      <td class="colCodigo">2012.1</td>
+                      <td class="colMatriz">
+                        PSICOLOGIA/IPD - Psic&oacute;logo - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">850/-3</td>
+                      <td class="colCodigo">2016.2</td>
+                      <td class="colMatriz">
+                        JORNALISMO/FAC/JOR - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6017/1</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA DE PRODU&Ccedil;&Atilde;O/EPR - Bacharelado -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6131/-3</td>
+                      <td class="colCodigo">2013.2</td>
+                      <td class="colMatriz">
+                        ENGENHARIA ELETR&Ocirc;NICA/FGA - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1449/-4</td>
+                      <td class="colCodigo">2009.1</td>
+                      <td class="colMatriz">
+                        QU&Iacute;MICA/IQD - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8311/-3</td>
+                      <td class="colCodigo">2011.1</td>
+                      <td class="colMatriz">
+                        COMUNICA&Ccedil;&Atilde;O SOCIAL - JORNALISMO/FAC/JOR -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8222/-5</td>
+                      <td class="colCodigo">2006.2</td>
+                      <td class="colMatriz">
+                        BIBLIOTECONOMIA/FCI - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8591/-4</td>
+                      <td class="colCodigo">2008.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIA POL&Iacute;TICA/IPOL - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8222/-3</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        BIBLIOTECONOMIA/FCI - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8591/-5</td>
+                      <td class="colCodigo">2006.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIA POL&Iacute;TICA/IPOL - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">3514/-2</td>
+                      <td class="colCodigo">2014.1</td>
+                      <td class="colMatriz">
+                        SERVI&Ccedil;O SOCIAL/SER - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">2259/1</td>
+                      <td class="colCodigo">2016.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS BIOL&Oacute;GICAS/ICB - Licenciatura -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">2283/-2</td>
+                      <td class="colCodigo">2014.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS NATURAIS/FUP - Licenciatura - Presencial
+                        - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8516/1</td>
+                      <td class="colCodigo">2019.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS CONT&Aacute;BEIS/CCA - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1716/-2</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        ESTAT&Iacute;STICA/EST - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8885/-4</td>
+                      <td class="colCodigo">2011.1</td>
+                      <td class="colMatriz">
+                        DIREITO/FDD - Bacharelado - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">3425/-8</td>
+                      <td class="colCodigo">2013.1</td>
+                      <td class="colMatriz">
+                        HIST&Oacute;RIA/HIS - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1856/-3</td>
+                      <td class="colCodigo">2015.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIA DA COMPUTA&Ccedil;&Atilde;O/CIC -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6912/-2</td>
+                      <td class="colCodigo">2016.2</td>
+                      <td class="colMatriz">
+                        ENGENHARIA MECATR&Ocirc;NICA - CONTROLE E
+                        AUTOMA&Ccedil;&Atilde;O/FTD - Engenheiro de Controle e
+                        Automa&ccedil;&atilde;o - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">7111/-4</td>
+                      <td class="colCodigo">2004.1</td>
+                      <td class="colMatriz">
+                        MEDICINA/FMD - M&eacute;dico - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">2259/-4</td>
+                      <td class="colCodigo">2014.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS BIOL&Oacute;GICAS/ICB - Licenciatura -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">3336/-6</td>
+                      <td class="colCodigo">2005.1</td>
+                      <td class="colMatriz">
+                        FILOSOFIA/FIL - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">2739/-6</td>
+                      <td class="colCodigo">2008.1</td>
+                      <td class="colMatriz">
+                        PSICOLOGIA/IPD - Psic&oacute;logo - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">7111/-2</td>
+                      <td class="colCodigo">2015.2</td>
+                      <td class="colMatriz">
+                        MEDICINA/FMD - M&eacute;dico - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8583/1</td>
+                      <td class="colCodigo">2019.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS CONT&Aacute;BEIS/CCA - Bacharelado -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8311/-2</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        COMUNICA&Ccedil;&Atilde;O SOCIAL - JORNALISMO/FAC/JOR -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6165/-3</td>
+                      <td class="colCodigo">2010.2</td>
+                      <td class="colMatriz">
+                        AGRONOMIA/FAV - Engenheiro Agr&ocirc;nomo - Presencial -
+                        D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">7412/1</td>
+                      <td class="colCodigo">2015.1</td>
+                      <td class="colMatriz">
+                        ENFERMAGEM/ENF - Enfermeiro - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6262/-2</td>
+                      <td class="colCodigo">2010.2</td>
+                      <td class="colMatriz">
+                        GEST&Atilde;O DE AGRONEG&Oacute;CIOS/FAV - Bacharelado -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">7111/1</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        MEDICINA/FMD - M&eacute;dico - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8150/-2</td>
+                      <td class="colCodigo">2017.2</td>
+                      <td class="colMatriz">
+                        ADMINISTRA&Ccedil;&Atilde;O/ADM - Bacharelado -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8362/-3</td>
+                      <td class="colCodigo">2010.1</td>
+                      <td class="colMatriz">
+                        COMUNICA&Ccedil;&Atilde;O SOCIAL -
+                        COMUNICA&Ccedil;&Atilde;O ORGANIZACIONAL/FAC/COM -
+                        Bacharelado - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">3344/-4</td>
+                      <td class="colCodigo">2012.1</td>
+                      <td class="colMatriz">
+                        FILOSOFIA/FIL - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">3221/-2</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS ECON&Ocirc;MICAS/ECO - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1449/1</td>
+                      <td class="colCodigo">2016.2</td>
+                      <td class="colMatriz">
+                        QU&Iacute;MICA/IQD - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">2291/-3</td>
+                      <td class="colCodigo">2013.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS NATURAIS/FUP - Licenciatura - Presencial
+                        - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8591/-6</td>
+                      <td class="colCodigo">1998.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIA POL&Iacute;TICA/IPOL - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">2291/-4</td>
+                      <td class="colCodigo">2009.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS NATURAIS/FUP - Licenciatura - Presencial
+                        - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">2721/-2</td>
+                      <td class="colCodigo">2017.1</td>
+                      <td class="colMatriz">
+                        PSICOLOGIA/IPD - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">3522/1</td>
+                      <td class="colCodigo">2017.2</td>
+                      <td class="colMatriz">
+                        SERVI&Ccedil;O SOCIAL/SER - Bacharelado - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">1112/-2</td>
+                      <td class="colCodigo">2014.2</td>
+                      <td class="colMatriz">
+                        F&Iacute;SICA/IFD - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8338/-4</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        COMUNICA&Ccedil;&Atilde;O SOCIAL - PUBLICIDADE E
+                        PROPAGANDA/FAC/DAP - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8885/-5</td>
+                      <td class="colCodigo">2006.2</td>
+                      <td class="colMatriz">
+                        DIREITO/FDD - Bacharelado - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6254/1</td>
+                      <td class="colCodigo">2018.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA AMBIENTAL/ENC - Engenheiro - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">2721/-5</td>
+                      <td class="colCodigo">2012.1</td>
+                      <td class="colMatriz">
+                        PSICOLOGIA/IPD - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">2771/-2</td>
+                      <td class="colCodigo">2011.2</td>
+                      <td class="colMatriz">
+                        BIOTECNOLOGIA/ICB - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6131/-4</td>
+                      <td class="colCodigo">2008.2</td>
+                      <td class="colMatriz">
+                        ENGENHARIA ELETR&Ocirc;NICA/FGA - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8516/-3</td>
+                      <td class="colCodigo">2012.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS CONT&Aacute;BEIS/CCA - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">2739/-3</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        PSICOLOGIA/IPD - Psic&oacute;logo - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6360/1</td>
+                      <td class="colCodigo">2017.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA DE SOFTWARE/FGA - Bacharelado - Presencial -
+                        D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8184/-2</td>
+                      <td class="colCodigo">2015.1</td>
+                      <td class="colMatriz">
+                        GEST&Atilde;O DE POL&Iacute;TICAS P&Uacute;BLICAS/GPP -
+                        Bacharelado - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8486/1</td>
+                      <td class="colCodigo">2019.2</td>
+                      <td class="colMatriz">
+                        DIREITO/FDD - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">5126/-2</td>
+                      <td class="colCodigo">2013.1</td>
+                      <td class="colMatriz">
+                        ARQUITETURA E URBANISMO/FAU - Arquiteto e Urbanista -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">3336/-4</td>
+                      <td class="colCodigo">2013.2</td>
+                      <td class="colMatriz">
+                        FILOSOFIA/FIL - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">3425/-2</td>
+                      <td class="colCodigo">2019.2</td>
+                      <td class="colMatriz">
+                        HIST&Oacute;RIA/HIS - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8222/-2</td>
+                      <td class="colCodigo">2016.2</td>
+                      <td class="colMatriz">
+                        BIBLIOTECONOMIA/FCI - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8486/-4</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        DIREITO/FDD - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1341/1</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        MATEM&Aacute;TICA/MAT - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">7137/-3</td>
+                      <td class="colCodigo">2008.2</td>
+                      <td class="colMatriz">
+                        FISIOTERAPIA/FCE - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8591/-2</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIA POL&Iacute;TICA/IPOL - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6335/-5</td>
+                      <td class="colCodigo">2013.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA EL&Eacute;TRICA/ENE - Engenheiro Eletricista
+                        - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6335/-6</td>
+                      <td class="colCodigo">2009.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA EL&Eacute;TRICA/ENE - Engenheiro Eletricista
+                        - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">2321/1</td>
+                      <td class="colCodigo">2014.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS AMBIENTAIS/IGD - Bacharelado - Presencial
+                        - POL&Iacute;TICAS E SUSTENTABILIDADE - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1147/-3</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        F&Iacute;SICA/IFD - Licenciatura - Presencial - N
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">7072/-3</td>
+                      <td class="colCodigo">2015.1</td>
+                      <td class="colMatriz">
+                        ENFERMAGEM/FCE - Enfermeiro - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">5126/-3</td>
+                      <td class="colCodigo">2005.1</td>
+                      <td class="colMatriz">
+                        ARQUITETURA E URBANISMO/FAU - Arquiteto e Urbanista -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">3476/-3</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        HIST&Oacute;RIA/HIS - Licenciatura - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1503/1</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        QU&Iacute;MICA/IQD - Licenciatura - Presencial - N
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6424/-3</td>
+                      <td class="colCodigo">2005.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA MEC&Acirc;NICA/ENM - Engenheiro
+                        Mec&acirc;nico - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6424/-2</td>
+                      <td class="colCodigo">2013.2</td>
+                      <td class="colMatriz">
+                        ENGENHARIA MEC&Acirc;NICA/ENM - Engenheiro
+                        Mec&acirc;nico - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">3522/-4</td>
+                      <td class="colCodigo">2010.1</td>
+                      <td class="colMatriz">
+                        SERVI&Ccedil;O SOCIAL/SER - Bacharelado - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8354/-3</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        COMUNICA&Ccedil;&Atilde;O SOCIAL - AUDIOVISUAL/FAC/DAP -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6351/-4</td>
+                      <td class="colCodigo">2015.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA DE REDES DE COMUNICA&Ccedil;&Atilde;O/ENE -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">3417/-5</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        HIST&Oacute;RIA/HIS - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8117/1</td>
+                      <td class="colCodigo">2020.1</td>
+                      <td class="colMatriz">
+                        ADMINISTRA&Ccedil;&Atilde;O/ADM - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1228/-2</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        GEOLOGIA/IGD - Ge&oacute;logo - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">3859/-3</td>
+                      <td class="colCodigo">2005.1</td>
+                      <td class="colMatriz">
+                        GEOGRAFIA/GEA - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1155/1</td>
+                      <td class="colCodigo">2014.2</td>
+                      <td class="colMatriz">
+                        F&Iacute;SICA COMPUTACIONAL/IFD - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">2712/-5</td>
+                      <td class="colCodigo">2012.1</td>
+                      <td class="colMatriz">
+                        PSICOLOGIA/IPD - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">N&atilde;o</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8354/-4</td>
+                      <td class="colCodigo">2013.2</td>
+                      <td class="colMatriz">
+                        COMUNICA&Ccedil;&Atilde;O SOCIAL - AUDIOVISUAL/FAC/DAP -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">7161/-2</td>
+                      <td class="colCodigo">2010.1</td>
+                      <td class="colMatriz">
+                        SA&Uacute;DE COLETIVA/DSC - Bacharelado - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1716/-3</td>
+                      <td class="colCodigo">2014.1</td>
+                      <td class="colMatriz">
+                        ESTAT&Iacute;STICA/EST - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">2712/-4</td>
+                      <td class="colCodigo">2014.1</td>
+                      <td class="colMatriz">
+                        PSICOLOGIA/IPD - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8486/-5</td>
+                      <td class="colCodigo">2011.1</td>
+                      <td class="colMatriz">
+                        DIREITO/FDD - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8338/-5</td>
+                      <td class="colCodigo">2013.2</td>
+                      <td class="colMatriz">
+                        COMUNICA&Ccedil;&Atilde;O SOCIAL - PUBLICIDADE E
+                        PROPAGANDA/FAC/DAP - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">5398/-3</td>
+                      <td class="colCodigo">2012.2</td>
+                      <td class="colMatriz">
+                        DESIGN - PROJETO DO PRODUTO/DIN - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">7137/-2</td>
+                      <td class="colCodigo">2015.1</td>
+                      <td class="colMatriz">
+                        FISIOTERAPIA/FCE - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">5673/1</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        ARQUITETURA E URBANISMO/FAU - Arquiteto e Urbanista -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8338/-2</td>
+                      <td class="colCodigo">2017.2</td>
+                      <td class="colMatriz">
+                        COMUNICA&Ccedil;&Atilde;O SOCIAL - PUBLICIDADE E
+                        PROPAGANDA/FAC/DAP - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6165/1</td>
+                      <td class="colCodigo">2018.1</td>
+                      <td class="colMatriz">
+                        AGRONOMIA/FAV - Engenheiro Agr&ocirc;nomo - Presencial -
+                        D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6009/-2</td>
+                      <td class="colCodigo">2008.2</td>
+                      <td class="colMatriz">
+                        ENGENHARIA/FGA - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8516/2</td>
+                      <td class="colCodigo">2021.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS CONT&Aacute;BEIS/CCA - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6360/-2</td>
+                      <td class="colCodigo">2008.2</td>
+                      <td class="colMatriz">
+                        ENGENHARIA DE SOFTWARE/FGA - Bacharelado - Presencial -
+                        D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">8338/1</td>
+                      <td class="colCodigo">2019.2</td>
+                      <td class="colMatriz">
+                        COMUNICA&Ccedil;&Atilde;O SOCIAL - PUBLICIDADE E
+                        PROPAGANDA/FAC/DAP - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">3417/-4</td>
+                      <td class="colCodigo">2017.2</td>
+                      <td class="colMatriz">
+                        HIST&Oacute;RIA/HIS - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">3344/-5</td>
+                      <td class="colCodigo">2005.1</td>
+                      <td class="colMatriz">
+                        FILOSOFIA/FIL - Licenciatura - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">3476/-4</td>
+                      <td class="colCodigo">2009.2</td>
+                      <td class="colMatriz">
+                        HIST&Oacute;RIA/HIS - Licenciatura - Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">5380/2</td>
+                      <td class="colCodigo">2020.1</td>
+                      <td class="colMatriz">
+                        DESIGN - PROGRAMA&Ccedil;&Atilde;O VISUAL/DIN -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6254/-3</td>
+                      <td class="colCodigo">2010.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA AMBIENTAL/ENC - Engenheiro - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1449/-3</td>
+                      <td class="colCodigo">2014.1</td>
+                      <td class="colMatriz">
+                        QU&Iacute;MICA/IQD - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8583/-4</td>
+                      <td class="colCodigo">2008.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS CONT&Aacute;BEIS/CCA - Bacharelado -
+                        Presencial - N
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6131/1</td>
+                      <td class="colCodigo">2020.1</td>
+                      <td class="colMatriz">
+                        ENGENHARIA ELETR&Ocirc;NICA/FGA - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">8117/-5</td>
+                      <td class="colCodigo">2015.1</td>
+                      <td class="colMatriz">
+                        ADMINISTRA&Ccedil;&Atilde;O/ADM - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">1856/-2</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIA DA COMPUTA&Ccedil;&Atilde;O/CIC -
+                        Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">850/1</td>
+                      <td class="colCodigo">2019.2</td>
+                      <td class="colMatriz">
+                        JORNALISMO/FAC/JOR - Bacharelado - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">3221/1</td>
+                      <td class="colCodigo">2017.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS ECON&Ocirc;MICAS/ECO - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6131/2</td>
+                      <td class="colCodigo">2021.2</td>
+                      <td class="colMatriz">
+                        ENGENHARIA ELETR&Ocirc;NICA/FGA - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">6912/2</td>
+                      <td class="colCodigo">2022.2</td>
+                      <td class="colMatriz">
+                        ENGENHARIA MECATR&Ocirc;NICA - CONTROLE E
+                        AUTOMA&Ccedil;&Atilde;O/FTD - Engenheiro de Controle e
+                        Automa&ccedil;&atilde;o - Presencial - D
+                      </td>
+                      <td class="colObg">Sim</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">6181/-2</td>
+                      <td class="colCodigo">2012.2</td>
+                      <td class="colMatriz">
+                        MEDICINA VETERIN&Aacute;RIA/FAV - M&eacute;dico
+                        Veterin&aacute;rio - Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">2216/-4</td>
+                      <td class="colCodigo">2016.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS BIOL&Oacute;GICAS/ICB - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaPar">
+                      <td class="colCodigo">2216/-3</td>
+                      <td class="colCodigo">2016.2</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS BIOL&Oacute;GICAS/ICB - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">1</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                    <tr class="linhaImpar">
+                      <td class="colCodigo">2216/-5</td>
+                      <td class="colCodigo">2014.1</td>
+                      <td class="colMatriz">
+                        CI&Ecirc;NCIAS BIOL&Oacute;GICAS/ICB - Bacharelado -
+                        Presencial - D
+                      </td>
+                      <td class="colObg">N&atilde;o</td>
+                      <td class="colPeriodo">0</td>
+                      <td class="colAtivo">Sim</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+          <br />
+          <div class="voltar" style="text-align: center">
+            <a href="javascript: history.go(-1);"> << Voltar </a>
+          </div>
+
+          <div class="clear"></div>
+        </div>
+
+        <div id="rodape">
+          <p>
+            SIGAA | Secretaria de Tecnologia da Informa&#231;&#227;o - STI -
+            (61) 3107-0102 | Copyright &copy; 2006-2024 - UFRN -
+            app44_Prod.sigaa38
+
+            <a onclick="javascript:versao();">v4.9.10.67</a>
+          </p>
+        </div>
+
+        <!-- Fim dos containers -->
+      </div>
+    </div>
+
+    <script>
+      (function (i, s, o, g, r, a, m) {
+        i["GoogleAnalyticsObject"] = r;
+        (i[r] =
+          i[r] ||
+          function () {
+            (i[r].q = i[r].q || []).push(arguments);
+          }),
+          (i[r].l = 1 * new Date());
+        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+      })(
+        window,
+        document,
+        "script",
+        "//www.google-analytics.com/analytics.js",
+        "ga"
+      );
+
+      ga("create", "0", "auto");
+      ga("send", "pageview");
+    </script>
+
+    <!-- MYFACES JAVASCRIPT -->
+  </body>
+</html>
+
+<script type="text/javascript" charset="UTF-8">
+  function versao() {
+    var msg = "";
+    msg += "SIGAA 4.9.10.67,  publicado em: 07/02/2024 12:01\n\n";
+    msg += "Depend\u00eancias:\n";
+    msg += "Arquitetura 4.4.0\n";
+    msg += "Entidades Comuns 2.3.3\n";
+    msg += "Servicos Integrados 2.0.8\n";
+    msg += "SharedResources 2.1.2\n";
+    msg += "Servicos Remoto Biblioteca null\n";
+    msg += "SIGAA Mobile Objects 1.0.0\n\n";
+    msg += "Copyright SINFO/UFRN";
+    alert(msg);
+  }
+</script>
+
+<style>
+  a.linkMobile:link {
+    color: #003395;
+    font-weight: bold;
+    font-size: inherit;
+    text-decoration: none;
+  }
+
+  a.linkMobile:visited {
+    color: #003390;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  a.linkMobile:active {
+    color: #444444;
+    text-decoration: none;
+    font-weight: bold;
+  }
+</style>

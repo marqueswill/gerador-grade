@@ -6,21 +6,20 @@ from django.db import IntegrityError
 url = "https://sig.unb.br/sigaa/public/componentes/busca_componentes.jsf"
 
 
-def get_ids_and_names():
-    departamentos = {}
-    response = requests.request("GET", url)
-    html_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
-    list_depto = html_soup.find(id="form:unidades")
-
-    for depto in list_depto.find_all("option"):
-        departamentos[depto["value"]] = depto.text
-
-    departamentos.pop("0", None)
-    return departamentos
-
-
 def parse_department(dapartment_sigaa_id, department_name):
-    payload = f"form=form&form%3Anivel=G&form%3AcheckTipo=on&form%3Atipo=2&form%3Aj_id_jsp_190531263_11=&form%3Aj_id_jsp_190531263_13=&form%3AcheckUnidade=on&form%3Aunidades={dapartment_sigaa_id}&form%3AbtnBuscarComponentes=Buscar+Componentes&javax.faces.ViewState=j_id1"
+    payload = {
+        "form": "form",
+        "form:nivel": "G",
+        "form:checkTipo": "on",
+        "form:tipo": 2,
+        "form:j_id_jsp_190531263_11": "",
+        "form:j_id_jsp_190531263_13": "",
+        "form:checkUnidade": "on",
+        "form:unidades": dapartment_sigaa_id,
+        "form:btnBuscarComponentes": "Buscar Componentes",
+        "javax.faces.ViewState": "j_id1",  # ?
+    }
+
     headers = {
         "Content-Type": "application/x-www-form-urlencoded",
         "Cookie": get_cookies(),
@@ -42,6 +41,19 @@ def parse_department(dapartment_sigaa_id, department_name):
             )
     else:
         print(f"O departamento {department_name} não possui disciplinas")
+
+
+def get_ids_and_names():
+    departamentos = {}
+    response = requests.request("GET", url)
+    html_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
+    list_depto = html_soup.find(id="form:unidades")
+
+    for depto in list_depto.find_all("option"):
+        departamentos[depto["value"]] = depto.text
+
+    departamentos.pop("0", None)
+    return departamentos
 
 
 def get_cookies():

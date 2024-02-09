@@ -1,82 +1,27 @@
 from bs4 import BeautifulSoup
 from time import sleep
 import requests
-from course.models.models import Offer
-from course.models.models import Subject
-from course.models.models import Teacher, OfferTeacher
+from course.models.models import Offer, Subject, Teacher, OfferTeacher
 from django.db import IntegrityError
 
 url = "https://sigaa.unb.br/sigaa/public/turmas/listar.jsf"
-YEAR = 2022
-PERIOD = 2
-
-
-# Input: Lista contendo os valores das disciplinas para ser refatorado (obtidos através dos tds)
-# Output: Dicionário contendo as informações refatoradas para criar a oferta
-def refactor_list(lista, nome):
-    turma = {}
-
-    turma["name"] = lista[0].strip()
-
-    turma["semester"] = lista[1]
-
-    # Nome e carga horário vêm na mesma string
-    turma["teacher"] = lista[2].split(" (")[0]
-    turma["workload"] = int(lista[2].split("(")[1][0:-2])
-
-    # Horário
-    turma["schedule"] = lista[3].split("\r")[0][1:]
-
-    turma["students_qtd"] = lista[5]
-
-    turma["occupied"] = lista[6]
-
-    turma["place"] = lista[7][1:]
-
-    turma["subject_code"] = nome.split(" ")[0]
-
-    # Separa a palavra no - ou seja, ignora o código da disciplina
-    turma["subject_name"] = nome.split(" - ", 1)[-1]
-
-    return turma
-
-
-def get_ids_and_names():
-    departamentos = {}
-    response = requests.request("GET", url)
-    html_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
-    list_depto = html_soup.find(id="formTurma:inputDepto")
-
-    for depto in list_depto.find_all("option"):
-        departamentos[depto["value"]] = depto.text
-
-    departamentos.pop("0", None)
-    return departamentos
-
-
-###### Create ######
-
-
-def create_subject(subject_code, department_object, subject_name, workload):
-    subject_object = Subject(
-        code=subject_code,
-        department=department_object,
-        name=subject_name,
-        credit=workload,
-    )
-    return subject_object
-
-
-####################
+YEAR = 2024
+PERIOD = 1
 
 
 def parse_oferta(id, department_name):
     infos_list = []
-    request_data = get_request_from_oferta()
-    payload = (
-        f"formTurma=formTurma&formTurma%3AinputNivel=G&formTurma%3AinputDepto={id}&formTurma%3AinputAno={YEAR}&formTurma%3AinputPeriodo={PERIOD}&formTurma%3Aj_id_jsp_1370969402_11=Buscar&javax.faces.ViewState="
-        f'{request_data["javax"]}'
-    )
+    request_data = get_request_data()
+
+    payload = {
+        "formTurma": "formTurma",
+        "formTurma:inputNivel": "G",
+        "formTurma:inputDepto": id,
+        "formTurma:inputAno": YEAR,
+        "formTurma:inputPeriodo": PERIOD,
+        "formTurma:j_id_jsp_1370969402_11": "Buscar",
+        "javax.faces.ViewState": request_data["javax"],
+    }
     headers = {
         "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:79.0) Gecko/20100101 Firefox/79.0",
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
@@ -91,6 +36,7 @@ def parse_oferta(id, department_name):
     }
 
     response = requests.request("POST", url, headers=headers, data=payload)
+    print(response.text)
 
     html_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
     turma_aux = html_soup.find_all("tr", {"class": "agrupador"})
@@ -103,6 +49,7 @@ def parse_oferta(id, department_name):
 
         if turma == None:
             break
+
         # Se é agrupador, conseguimos obter o nome da turma
         if turma["class"][0] == "agrupador":
             nome = turma.text.strip()
@@ -207,7 +154,49 @@ def parse_oferta(id, department_name):
             break
 
 
-def get_request_from_oferta():
+def refactor_list(lista, nome):
+    # Input: Lista contendo os valores das disciplinas para ser refatorado (obtidos através dos tds)
+    # Output: Dicionário contendo as informações refatoradas para criar a oferta
+    turma = {}
+
+    turma["name"] = lista[0].strip()
+    turma["semester"] = lista[1]
+    turma["teacher"] = lista[2].split(" (")[0]
+    turma["workload"] = int(lista[2].split("(")[1][0:-2])
+    turma["schedule"] = lista[3].split("\r")[0][1:]
+    turma["students_qtd"] = lista[5]
+    turma["occupied"] = lista[6]
+    turma["place"] = lista[7][1:]
+    turma["subject_code"] = nome.split(" ")[0]
+    turma["subject_name"] = nome.split(" - ", 1)[-1]
+
+    return turma
+
+
+def get_ids_and_names():
+    departamentos = {}
+    response = requests.request("GET", url)
+    html_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
+    list_depto = html_soup.find(id="formTurma:inputDepto")
+
+    for depto in list_depto.find_all("option"):
+        departamentos[depto["value"]] = depto.text
+
+    departamentos.pop("0", None)
+    return departamentos
+
+
+def create_subject(subject_code, department_object, subject_name, workload):
+    subject_object = Subject(
+        code=subject_code,
+        department=department_object,
+        name=subject_name,
+        credit=workload,
+    )
+    return subject_object
+
+
+def get_request_data():
     response = requests.request("GET", url)
     html_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
     return {
