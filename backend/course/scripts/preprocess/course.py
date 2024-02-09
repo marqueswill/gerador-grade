@@ -7,6 +7,7 @@ from course.models.models import Course
 # Para todos os cursos
 # python manage.py runscript preprocess.course --script-args all
 
+
 def run(*args):
     if len(args) == 0:
         print("Necessário passar o identificador do curso de parametro ou all")

@@ -27,7 +27,7 @@ def run():
     parse_oferta()
     print("\n###### PARSE DA OFERTA CONCLUÍDO ######\n")
 
-    # Get all course IDs 
+    # Get all course IDs
     course_ids = [course.code for course in Course.objects.all()]
 
     print("\n###### INICIANDO O PARSE DOS CURSOS ######\n")
@@ -43,7 +43,9 @@ def run():
     print("\n###### ADICIONANDO EQUIVALÊNCIAS e PRÉ-REQUISITOS NA DISCIPLINA ######\n")
     subjects_ids = [subject.code for subject in Subject.objects.all()]
     for subjects_id in subjects_ids:
-        print(f"\n###### PARSE EQUIVALÊNCIAS e PRÉ-REQUISITOS da disciplina {subjects_id} ######\n")
+        print(
+            f"\n###### PARSE EQUIVALÊNCIAS e PRÉ-REQUISITOS da disciplina {subjects_id} ######\n"
+        )
         try:
             parse_equivalence(subjects_id)
         except:

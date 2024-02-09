@@ -7,6 +7,7 @@ from course.models.models import Subject
 # Para todas as disciplinas
 # python manage.py runscript preprocess.subject --script-args all
 
+
 def run(*args):
     if len(args) == 0:
         print("Necessário passar o identificador da disciplina de parametro ou all")
@@ -16,7 +17,7 @@ def run(*args):
     if args[0] == "all":
         print("Iniciando o processamento de todas as disciplinas...")
         for subject in Subject.objects.all():
-            subject.preprocess_info('2022.2')
+            subject.preprocess_info("2022.2")
         print("Finalizando o processamento de todas as disciplinas...")
         return
 
