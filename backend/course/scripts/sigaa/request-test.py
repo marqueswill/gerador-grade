@@ -2,6 +2,8 @@ from bs4 import BeautifulSoup
 import requests as request
 
 
+# TODO: criar classe para requests?
+# TODO: sobrecarga de funções?
 def request_course_curriculum_page(request_data):
     url = "https://sig.unb.br/sigaa/public/curso/curriculo.jsf"
     payload = {
