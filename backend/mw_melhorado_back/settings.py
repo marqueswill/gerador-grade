@@ -89,13 +89,17 @@ WSGI_APPLICATION = "mw_melhorado_back.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.environ.get("POSTGRES_DB", "cadeomw"),
-        "USER": "postgres",  # TODO: This bug with env var
-        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "postgres"),
-        "HOST": os.environ.get("POSTGRES_HOST", "db"),
-        "PORT": "5432",
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "database.db",
     }
+    # "default": {
+    #     "ENGINE": "django.db.backends.postgresql_psycopg2",
+    #     "NAME": os.environ.get("POSTGRES_DB", "cadeomw"),
+    #     "USER": "postgres",  # TODO: This bug with env var
+    #     "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "postgres"),
+    #     "HOST": os.environ.get("POSTGRES_HOST", "db"),
+    #     "PORT": "5432",
+    # }
 }
 # DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
