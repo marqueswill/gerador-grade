@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from time import sleep
 import requests
+from course.models.models import models
 from course.models.models import Offer, Subject, Teacher, OfferTeacher
 from django.db import IntegrityError
 
