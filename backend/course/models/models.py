@@ -312,6 +312,41 @@ class CourseSubject(models.Model):
             "credit": self.subject.credit,
             # "pass_percent": self.subject.pass_percent,
         }
+        
+    def get_by_credit(self,credit,departmentid,schedule):
+        selected_courses = self.objects.select_related(
+            'course_department','course_subject','course_offer'
+        ).filter(
+            course_department__id=departmentid,
+            course_subject__credit = credit,
+            course_offer__schedule=schedule
+        ).values(
+            'course_subject__code',
+            'course_subject__name',
+            'course_offer_place',
+            'course_department__initials',
+            'course_offer__schedule'
+        )
+        
+        return [course for course in selected_courses]
+    
+    def get_by_period(self,credit,departmentid,period):
+        selected_courses = self.objects.select_related(
+            'course_department','course_subject','course_offer'
+        ).filter(
+            course_department__id=departmentid,
+            course_subject__credit = credit,
+            course_offer__schedule__icontains=period
+        ).values(
+            'course_subject__code',
+            'course_subject__name',
+            'course_offer_place',
+            'course_department__initials',
+            'course_offer__schedule'
+        )
+        
+        return [course for course in selected_courses]
+    
 
 
 class CourseCurriculum(models.Model):
