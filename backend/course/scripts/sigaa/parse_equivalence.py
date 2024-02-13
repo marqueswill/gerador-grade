@@ -3,13 +3,9 @@ import requests
 from course.models.models import Equivalence, PreRequisiteSet, Subject, CoRequisite
 
 
-def parse_equivalence(subject_code):
-    url = "https://sig.unb.br/sigaa/public/componentes/busca_componentes.jsf"
-    subject_sigaa_id, cookies = get_params_for_parse(subject_code)
-    payload = f"formListagemComponentes=formListagemComponentes&javax.faces.ViewState=j_id2&formListagemComponentes%3Aj_id_jsp_190531263_23=formListagemComponentes%3Aj_id_jsp_190531263_23&id={subject_sigaa_id}&publico=public"
-    headers = {"Content-Type": "application/x-www-form-urlencoded", "Cookie": cookies}
-    response = requests.request("POST", url, headers=headers, data=payload)
-    html_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
+def parse_equivalence(subject_code, subject_id):
+
+    html_soup = request_subject_page(subject_id)
     table = html_soup.select_one(".visualizacao")
     pre_req = table.select("tr")[8]
     co_req = table.select("tr")[9]
@@ -93,10 +89,39 @@ def get_params_for_parse(subject_code):
     response = requests.request("POST", url, headers=header, data=payload)
     page_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
     subject_link_to = page_soup.select_one("tbody td a")
-    subject_sigaa_id = subject_link_to["onclick"].split(":")[4][1:7]
-    return subject_sigaa_id, cookies
+    subject_id = subject_link_to["onclick"].split(":")[4][1:7]
+    return subject_id, cookies
+
+
+def get_request_data(url):
+    response = requests.request("GET", url)
+    html_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
+    return {
+        "cookies": response.headers["Set-Cookie"].split(" ")[0],
+        "javax": html_soup.find("input", {"name": "javax.faces.ViewState"})["value"],
+    }
+
+
+def request_subject_page(payload_data):
+    url = "https://sigaa.unb.br/sigaa/public/componentes/busca_componentes.jsf?aba=p-ensino"
+    request_data = get_request_data(url)
+
+    payload = {
+        "formListagemComponentes": "formListagemComponentes",
+        "javax.faces.ViewState": request_data["javax"],
+        "formListagemComponentes:j_id_jsp_190531263_23": "formListagemComponentes:j_id_jsp_190531263_23",
+        "id": payload_data["subject_id"],
+        "publico": "public",
+    }
+    headers = {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Cookie": request_data["cookies"],
+    }
+    response = requests.post(url, headers=headers, data=payload)
+    html_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
+    return html_soup
 
 
 def run():
     # Exemplo introdução ao processamento de imagens
-    parse_equivalence("ENE0042")
+    parse_equivalence("ENE0042",)

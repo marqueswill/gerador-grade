@@ -4,6 +4,7 @@ from django.contrib.postgres.fields import JSONField
 
 # Create your models here.
 class Department(models.Model):
+    # sigaa_id = models.PositiveSmallIntegerField(null=True)
     name = models.CharField(max_length=100)
     initials = models.CharField(max_length=4)
 
@@ -141,7 +142,8 @@ class Course(models.Model):
 
 # Classe que armazena as disciplinas
 class Subject(models.Model):
-    code = models.CharField(primary_key=True, max_length=20)
+    id = models.PositiveSmallIntegerField(primary_key=True)
+    code = models.CharField(max_length=20)
     department = models.ForeignKey(
         Department, on_delete=models.CASCADE, related_name="subject", null=True
     )
@@ -397,9 +399,8 @@ class Equivalence(models.Model):
             "options": [op.to_json() for op in self.options.all()],
         }
 
-    # Classe que armazena um curso e a qual equivalência ele se refere
 
-
+# Classe que armazena um curso e a qual equivalência ele se refere
 class Option(models.Model):
     course = models.ForeignKey(
         Course, on_delete=models.CASCADE, related_name="subject_option"

@@ -22,9 +22,11 @@ def parse_course(course_sigaa_id):
     # print(active_curriculum_ids)
 
     for curriculum_id in active_curriculum_ids:
-        html_soup = request_course_curriculum_page(
-            {"curriculum_id": curriculum_id, "course_sigaa_id": course_sigaa_id}
-        )
+        payload_data = {
+            "curriculum_id": curriculum_id,
+            "course_sigaa_id": course_sigaa_id,
+        }
+        html_soup = request_course_curriculum_page(payload_data)
 
         print(html_soup)
         parse_flow(html_soup, course)
@@ -162,8 +164,8 @@ def get_request_data(url):
 
 def request_course_curriculum_page(payload_data):
     url = "https://sig.unb.br/sigaa/public/curso/curriculo.jsf"
-    data_url = f"https://sig.unb.br/sigaa/public/curso/curriculo.jsf?lc=pt_BR&id={payload_data['course_sigaa_id']}"
-    request_data = get_request_data(data_url)
+    url_referer = f"https://sig.unb.br/sigaa/public/curso/curriculo.jsf?lc=pt_BR&id={payload_data['course_sigaa_id']}"
+    request_data = get_request_data(url_referer)
 
     payload = {
         "formCurriculosCurso": "formCurriculosCurso",
@@ -172,7 +174,7 @@ def request_course_curriculum_page(payload_data):
         "formCurriculosCurso:j_id_jsp_154341757_30": "formCurriculosCurso:j_id_jsp_154341757_30",
         "id": payload_data["curriculum_id"],
     }
-
+    print(payload)
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
         "Accept-Encoding": "gzip, deflate, br",
@@ -183,7 +185,7 @@ def request_course_curriculum_page(payload_data):
         "Cookie": request_data["cookies"],
         "Host": "sigaa.unb.br",
         "Origin": "https://sigaa.unb.br",
-        "Referer": url,
+        "Referer": url_referer,
         "Upgrade-Insecure-Requests": "1",
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     }

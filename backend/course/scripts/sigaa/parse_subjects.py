@@ -26,13 +26,16 @@ def parse_subjects_from_department(department_sigaa_id, department):
     )
 
     subjects = html_soup.select("tbody tr")
+    # print(subjects)
     for subject in subjects:
         fields = subject.select("td")
         # Coleta os campos necessários para criação da matéria
-        code, name, _, workload, _ = fields
+        code, name, _, workload, link = fields
+        subject_id = link.select_one("a")["onclick"].split(":")[4][1:7]
+
         try:
-            # print(code, name, workload)
             Subject.objects.create(
+                id=subject_id,
                 code=code.text,
                 department=department,
                 name=name.text[:79],  # para materias com len >= 80
@@ -74,18 +77,8 @@ def request_department_subjects_page(payload_data):
         "javax.faces.ViewState": request_data["javax"],
     }
     headers = {
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
-        "Cache-Control": "max-age=0",
-        "Connection": "keep-alive",
         "Content-Type": "application/x-www-form-urlencoded",
         "Cookie": request_data["cookies"],
-        "Host": "sigaa.unb.br",
-        "Origin": "https://sigaa.unb.br",
-        "Referer": url,
-        "Upgrade-Insecure-Requests": "1",
-        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chro",
     }
 
     response = requests.post(url, data=payload, headers=headers)
@@ -101,9 +94,9 @@ def run():
             departments[department_sigaa_id].split(" - ")[0].split(" (")[0]
         )
         try:
+            print(f"Registrando disciplinas para: {department_name}")
             department_object = Department.objects.get(name=department_name)
             parse_subjects_from_department(department_sigaa_id, department_object)
-            print(f"Disciplinas registradas na database: {department_name}")
 
         except Department.DoesNotExist:
             print(f"Departamento não possui disciplinas: {department_name}")

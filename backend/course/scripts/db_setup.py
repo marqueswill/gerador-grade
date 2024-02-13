@@ -12,33 +12,36 @@ from course.models.models import Course, Subject
 # Faz o parse das informações
 def run():
     # Cria os cursos e os departamentos
-    print("\n###### INICIANDO O PARSE DOS DEPARTAMENTOS ######\n")
-    # parse_departments()
+    print("\n###### INICIANDO O PARSE DAS UNIDADES ######\n")
     # parse_unidades()
+    print("\n###### PARSE DAS UNIDADES  CONCLUÍDO ######\n")
+
+    print("\n###### INICIANDO O PARSE DOS DEPARTAMENTOS ######\n")
+    parse_departments()
     print("\n###### PARSE DOS DEPARTAMENTOS CONCLUÍDO ######\n")
 
-    # Cria todas as disciplinas com base nos departamentos
-    print("\n###### INICIANDO PARSE DAS DISCIPLINAS ######\n")
+    # # Cria todas as disciplinas com base nos departamentos
+    # print("\n###### INICIANDO PARSE DAS DISCIPLINAS ######\n")
     # parse_disciplinas()
-    print("\n######  PARSE DAS DISCIPLINAS CONCLUÍDO ######\n")
+    # print("\n######  PARSE DAS DISCIPLINAS CONCLUÍDO ######\n")
 
-    # Cria as matérias e suas turmas da oferta
-    print("\n###### INICIANDO O PARSE DA OFERTA ######\n")
+    # # # Cria as matérias e suas turmas da oferta
+    # print("\n###### INICIANDO O PARSE DA OFERTA ######\n")
     # parse_oferta()
-    print("\n###### PARSE DA OFERTA CONCLUÍDO ######\n")
+    # print("\n###### PARSE DA OFERTA CONCLUÍDO ######\n")
 
-    # Get all course IDs
-    course_ids = [course.code for course in Course.objects.all()]
+    # # Get all course IDs
+    # course_ids = [course.code for course in Course.objects.all()]
 
-    print("\n###### INICIANDO O PARSE DOS CURSOS ######\n")
-    for course_id in course_ids:
-        print(f"\n###### INICIANDO O PARSE DO CURSO {course_id} ######\n")
-        parse_course(course_id)
-        print("\n###### PARSE DO CURSO CONCLUÍDO ######\n")
-        break
+    # print("\n###### INICIANDO O PARSE DOS CURSOS ######\n")
+    # for course_id in course_ids:
+    #     print(f"\n###### INICIANDO O PARSE DO CURSO {course_id} ######\n")
+    #     parse_course(course_id)
+    #     print("\n###### PARSE DO CURSO CONCLUÍDO ######\n")
+    #     break
 
-    # refactor_course()
-    print("\n###### PARSE DOS CURSOS CONCLUÍDO ######\n")
+    # # refactor_course()
+    # print("\n###### PARSE DOS CURSOS CONCLUÍDO ######\n")
 
     # print("\n###### ADICIONANDO EQUIVALÊNCIAS e PRÉ-REQUISITOS NA DISCIPLINA ######\n")
     # subjects_ids = [subject.code for subject in Subject.objects.all()]
