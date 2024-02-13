@@ -74,26 +74,30 @@ class Course(models.Model):
     def get_curriculum(self):
         return [cc.subject.to_json() for cc in self.course_curriculum.all()]
 
-    def get_flow_graph(self):
-        """Retorna o código DOT (Graphviz) do gráfico"""
-        return do_graph(self).source
+    # def get_flow_graph(self):
+    #     """Retorna o código DOT (Graphviz) do gráfico"""
+    #     return do_graph(self).source
 
     def get_num_semester(self):
         """Retorna o número de semestres do curso baseado no fluxo"""
         return len(self.flow)
 
     # def get_hardest_subject(self):
-    #     """ Retorna a disciplina mais difícil no curso que tenha pass_percent > 0,
+    #     """Retorna a disciplina mais difícil no curso que tenha pass_percent > 0,
     #     ou seja com menor porcentagem de aprovação"""
-    #     subjects = sorted(self.course_subject.all(), key=lambda t: t.subject.pass_percent)
+    #     subjects = sorted(
+    #         self.course_subject.all(), key=lambda t: t.subject.pass_percent
+    #     )
     #     for subject in subjects:
     #         if subject.subject.pass_percent > 0:
     #             return subject.to_json()
     #     return subjects[0].to_json()
 
     # def get_easiest_subject(self):
-    #     """ Retorna a disciplina mais fácil no curso, ou seja com maior porcentagem de aprovação"""
-    #     return sorted(self.course_subject.all(), key=lambda t: t.subject.pass_percent)[-1].to_json()
+    #     """Retorna a disciplina mais fácil no curso, ou seja com maior porcentagem de aprovação"""
+    #     return sorted(self.course_subject.all(), key=lambda t: t.subject.pass_percent)[
+    #         -1
+    #     ].to_json()
 
     def details(self):
         """Retorna as informações detalhadas do curso, no formato padronizado pelo front"""
@@ -143,13 +147,12 @@ class Subject(models.Model):
     )
     name = models.CharField(max_length=80)
     credit = models.SmallIntegerField()
-
     # Campos pré-processados
     equivalences = JSONField(blank=True, null=True)
     prerequisites = JSONField(blank=True, null=True)
     corequisites = JSONField(blank=True, null=True)
-    offer = JSONField(blank=True, null=True)
     # grade_infos = JSONField(blank=True, null=True)
+    offer = JSONField(blank=True, null=True)
     # pass_percent = models.FloatField(default=0)
 
     def __str__(self):
@@ -323,8 +326,9 @@ class CourseCurriculum(models.Model):
     def subject_name(self):
         return self.subject.name
 
+    # Classe que armazen as menções da disciplinas em um determinado semestre
 
-# Classe que armazen as menções da disciplinas em um determinado semestre
+
 # class SemesterGrade(models.Model):
 #     subject = models.ForeignKey(
 #         Subject, on_delete=models.CASCADE, related_name="semester_grade"
@@ -350,8 +354,9 @@ class PreRequisiteSet(models.Model):
         Subject, on_delete=models.CASCADE, related_name="prerequisite_set"
     )
 
+    # Classe que armazena um pré-requisito em um conjunto de requisito
 
-# Classe que armazena um pré-requisito em um conjunto de requisito
+
 class PreRequisite(models.Model):
     prerequisite_set = models.ForeignKey(
         PreRequisiteSet, on_delete=models.CASCADE, related_name="prerequisite"
@@ -450,4 +455,4 @@ class OfferTeacher(models.Model):
     # Import feito depois para não dar conflito com referência cruzada (TODO Alterar esse funcionamento)
 
 
-from course.scripts.graph_flow_course import do_graph
+# from course.scripts.graph_flow_course import do_graph

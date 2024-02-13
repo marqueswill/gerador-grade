@@ -1,28 +1,14 @@
 from bs4 import BeautifulSoup
 import requests
-from course.models.models import (
-    Equivalence,
-    PreRequisiteSet,
-    Subject,
-    CoRequisite,
-)
+from course.models.models import Equivalence, PreRequisiteSet, Subject, CoRequisite
 
 
 def parse_equivalence(subject_code):
     url = "https://sig.unb.br/sigaa/public/componentes/busca_componentes.jsf"
-
     subject_sigaa_id, cookies = get_params_for_parse(subject_code)
-    payload = {
-        "formListagemComponentes": "formListagemComponentes",
-        "javax.faces.ViewState": "j_id2",
-        "formListagemComponentes": "j_id_jsp_190531263_23: formListagemComponentes:j_id_jsp_190531263_23",
-        "id": subject_sigaa_id,
-        "publico": "public",
-    }
-
+    payload = f"formListagemComponentes=formListagemComponentes&javax.faces.ViewState=j_id2&formListagemComponentes%3Aj_id_jsp_190531263_23=formListagemComponentes%3Aj_id_jsp_190531263_23&id={subject_sigaa_id}&publico=public"
     headers = {"Content-Type": "application/x-www-form-urlencoded", "Cookie": cookies}
     response = requests.request("POST", url, headers=headers, data=payload)
-
     html_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
     table = html_soup.select_one(".visualizacao")
     pre_req = table.select("tr")[8]
@@ -102,21 +88,8 @@ def get_cookies():
 def get_params_for_parse(subject_code):
     url = "https://sig.unb.br/sigaa/public/componentes/busca_componentes.jsf"
     cookies = get_cookies()
-    payload = {
-        "form": "form",
-        "form:nivel": "G",
-        "form:checkTipo": "on",
-        "form:tipo": 2,
-        "form:checkCodigo": "on",
-        "form:j_id_jsp_190531263_11": subject_code,
-        "form:j_id_jsp_190531263_13": "",
-        "form:unidades": 0,
-        "form:btnBuscarComponentes": "Buscar Componentes",
-        "javax.faces.ViewState": "j_id1",
-    }
-
+    payload = f"form=form&form%3Anivel=G&form%3Atipo=4&form%3Aunidades=0&form%3AbtnBuscarComponentes=Buscar%2BComponentes&javax.faces.ViewState=j_id1&form%3AcheckCodigo=on&form%3Aj_id_jsp_190531263_11={subject_code}&form%3Aj_id_jsp_190531263_13="
     header = {"Cookie": cookies, "Content-Type": "application/x-www-form-urlencoded"}
-
     response = requests.request("POST", url, headers=header, data=payload)
     page_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
     subject_link_to = page_soup.select_one("tbody td a")

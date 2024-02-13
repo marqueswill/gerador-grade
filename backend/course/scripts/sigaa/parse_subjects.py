@@ -6,42 +6,6 @@ from django.db import IntegrityError
 url = "https://sig.unb.br/sigaa/public/componentes/busca_componentes.jsf"
 
 
-def parse_subjects_from_department(dapartment_sigaa_id, department):
-    payload = {
-        "form": "form",
-        "form:nivel": "G",
-        "form:checkTipo": "on",
-        "form:tipo": 2,
-        "form:j_id_jsp_190531263_11": "",
-        "form:j_id_jsp_190531263_13": "",
-        "form:checkUnidade": "on",
-        "form:unidades": dapartment_sigaa_id,
-        "form:btnBuscarComponentes": "Buscar Componentes",
-        "javax.faces.ViewState": "j_id1",  # ?
-    }
-    
-    headers = {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Cookie": get_cookies(),
-    }
-    response = requests.request("POST", url, headers=headers, data=payload)
-    html_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
-    subjects = html_soup.select("tbody tr")
-    for subject in subjects:
-        fields = subject.select("td")
-        # Coleta os campos necessários para criação da matéria
-        code, name, _, workload, _ = fields
-        try:
-            Subject.objects.create(
-                code=code.text,
-                department=department,
-                name=name.text[:79],  # para materias com len >= 80
-                credit=workload.text[:-1],  # Retira o h do final da string
-            )
-        except IntegrityError:
-            print(f"Disciplina já existente: {code.text}")
-
-
 def get_ids_and_names():
     departamentos = {}
     response = requests.request("GET", url)
@@ -55,21 +19,92 @@ def get_ids_and_names():
     return departamentos
 
 
+def parse_subjects_from_department(department_sigaa_id, department):
+
+    html_soup = request_department_subjects_page(
+        {"department_sigaa_id": department_sigaa_id}
+    )
+
+    subjects = html_soup.select("tbody tr")
+    for subject in subjects:
+        fields = subject.select("td")
+        # Coleta os campos necessários para criação da matéria
+        code, name, _, workload, _ = fields
+        try:
+            # print(code, name, workload)
+            Subject.objects.create(
+                code=code.text,
+                department=department,
+                name=name.text[:79],  # para materias com len >= 80
+                credit=workload.text[:-1],  # Retira o h do final da string
+            )
+            print(f"Disciplina registrada com sucesso: {code.text}")
+        except IntegrityError:
+            print(f"Disciplina já existe na database : {code.text}")
+
+
 def get_cookies():
     response = requests.request("GET", url)
     return response.headers["Set-Cookie"].split(" ")[0]
 
 
+def get_request_data(url):
+    response = requests.get(url)
+    html_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
+
+    cookies = response.headers["Set-Cookie"].split(" ")[0]
+    javax = html_soup.find("input", {"name": "javax.faces.ViewState"})["value"]
+
+    data = {"javax": javax, "cookies": cookies}
+
+    return data
+
+
+def request_department_subjects_page(payload_data):
+    url = "https://sigaa.unb.br/sigaa/public/componentes/busca_componentes.jsf"
+    request_data = get_request_data(url)
+    payload = {
+        "form": "form",
+        "form:nivel": "G",
+        "form:checkTipo": "on",
+        "form:tipo": 2,
+        "form:checkUnidade": "on",
+        "form:unidades": payload_data["department_sigaa_id"],
+        "form:btnBuscarComponentes": "Buscar Componentes",
+        "javax.faces.ViewState": request_data["javax"],
+    }
+    headers = {
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Cache-Control": "max-age=0",
+        "Connection": "keep-alive",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Cookie": request_data["cookies"],
+        "Host": "sigaa.unb.br",
+        "Origin": "https://sigaa.unb.br",
+        "Referer": url,
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chro",
+    }
+
+    response = requests.post(url, data=payload, headers=headers)
+    html_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
+    return html_soup
+
+
 # Esse parse tem a função de criar as disciplinas no banco de dados, é necessário que os departamentos já estejam criados
 def run():
     departments = get_ids_and_names()
-    for department in departments:
-        department_name = departments[department].split(" - ")[0].split(" (")[0]
+    for department_sigaa_id in departments:
+        department_name = (
+            departments[department_sigaa_id].split(" - ")[0].split(" (")[0]
+        )
         try:
             department_object = Department.objects.get(name=department_name)
-            parse_subjects_from_department(department, department_object)
+            parse_subjects_from_department(department_sigaa_id, department_object)
+            print(f"Disciplinas registradas na database: {department_name}")
+
         except Department.DoesNotExist:
-            print(
-                f"Departamento não existe ou não possui disciplinas: {department_name}"
-            )
+            print(f"Departamento não possui disciplinas: {department_name}")
             continue

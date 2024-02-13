@@ -12,16 +12,17 @@ def parse_departments():
 
     # Procurando a table listagem no html
     table = html_soup.find("table", {"class": "listagem"})
-
     department = None
+
     # Preenchendo o primeiro departamento da página
-    for row in table.findAll("tr")[1:2]:
-        col = row.findAll("td")
-        dept = col[0].string.replace("\n", "").replace("\t", "")
-        dept = dept.split(" - ")
-        initials = dept[0]
-        name = dept[1].split(" (")[0]
-        department = Department.objects.create(name=name, initials=initials)
+    # # Pra que?????
+    # for row in table.findAll("tr")[1:2]:
+    #     col = row.findAll("td")
+    #     dept = col[0].string.replace("\n", "").replace("\t", "")
+    #     dept = dept.split(" - ")
+    #     initials = dept[0]
+    #     name = dept[1].split(" (")[0]
+    #     department = Department.objects.create(name=name, initials=initials)
 
     # Pular o titulo da tabela
     for row in table.findAll("tr")[2:]:
@@ -29,8 +30,7 @@ def parse_departments():
 
         if len(col) == 1:
             # Atualiza as informações antigas
-            dept = col[0].string.replace("\n", "").replace("\t", "")
-            dept = dept.split(" - ")
+            dept = col[0].string.replace("\n", "").replace("\t", "").split(" - ")
             initials = dept[0]
             name = dept[1].split(" (")[0]
             department = Department.objects.create(name=name, initials=initials)
