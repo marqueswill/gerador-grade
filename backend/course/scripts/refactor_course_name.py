@@ -88,7 +88,7 @@ course_delete = {
 def refactor_course():
     for key, value in course_list.items():
         try:
-            curso = Course.objects.get(code=key)
+            curso = Course.objects.get(id=key)
             curso.name = value
             curso.save()
         except Course.DoesNotExist:
@@ -96,7 +96,7 @@ def refactor_course():
 
     for key, value in course_delete.items():
         try:
-            curso = Course.objects.get(code=key)
+            curso = Course.objects.get(id=key)
             curso.delete()
         except:
             print("Erro ao deletar o curso {}: {}".format(key, value))

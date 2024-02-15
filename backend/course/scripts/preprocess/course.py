@@ -24,7 +24,7 @@ def run(*args):
     # Curso em específico
     try:
         print(args[0])
-        course = Course.objects.get(code=args[0])
+        course = Course.objects.get(id=args[0])
         course.preprocess_info()
         print("Curso pré-processado com sucesso")
     except Course.DoesNotExist:

@@ -13,16 +13,6 @@ def parse_departments():
     table = html_soup.find("table", {"class": "listagem"})
     department = None
 
-    # Preenchendo o primeiro departamento da página
-    # # Pra que?????
-    # for row in table.findAll("tr")[1:2]:
-    #     col = row.findAll("td")
-    #     dept = col[0].string.replace("\n", "").replace("\t", "")
-    #     dept = dept.split(" - ")
-    #     initials = dept[0]
-    #     name = dept[1].split(" (")[0]
-    #     department = Department.objects.create(name=name, initials=initials)
-
     # Pular o titulo da tabela
     for row in table.findAll("tr")[2:]:
         col = row.findAll("td")
@@ -33,30 +23,23 @@ def parse_departments():
             initials = dept[0]  # ignorar por conta de conflitos
             name = dept[1].split(" (")[0]
             department = Department.objects.get(name=name)
-            print(department)
-            # try:
-            #     department = Department.objects.get(name=name)
-            #     print(f"O departamento já existe na database   : {department.name}")
-            # except Department.DoesNotExist:
-            #     department = Department.objects.create(name=name, initials=initials)
-            #     print(f"Departamento foi registrado com sucesso: {department.name}")
+            print(f"\n{department}")
 
         else:
-            # Lê informações da Tabela
             course_data = extract_course_data(col)
 
             try:
                 Course.objects.update_or_create(
-                    code=course_data["code"],
                     department=department,
+                    id=course_data["id"],
                     name=course_data["course_name"],
+                    coordinator_name=course_data["coordenador"],
                     academic_degree=course_data["academic_degree"],
                     shift=course_data["shift"],
                     is_ead=course_data["mode"] != "Presencial",
-                    coordinator_name=course_data["coordenador"],
                 )
                 print(
-                    f"Curso adicionado: [{course_data['code']}] - {course_data['course_name']}"
+                    f"Curso adicionado/atualizado: [{course_data['id']}] - {course_data['course_name']}"
                 )
             except Exception as e:
                 print(e)
@@ -82,7 +65,7 @@ def extract_course_data(col):
             if col[5].string != None
             else None
         ),
-        "code": (col[6].find("a")["href"][14:20]),
+        "id": (col[6].find("a")["href"][14:20]),
     }
     return data
 

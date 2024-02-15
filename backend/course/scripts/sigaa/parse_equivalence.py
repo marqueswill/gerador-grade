@@ -5,50 +5,53 @@ from course.models.models import Equivalence, PreRequisiteSet, Subject, CoRequis
 
 def parse_equivalence(subject_code, subject_id):
 
-    html_soup = request_subject_page(subject_id)
+    html_soup = request_subject_page({"subject_id": subject_id})
     table = html_soup.select_one(".visualizacao")
-    pre_req = table.select("tr")[8]
-    co_req = table.select("tr")[9]
+
+    print(table)
+    prerequisite = table.select("tr")[8]
+    corequisite = table.select("tr")[9]
     equivalence = table.select("tr")[10]
-    handle_pre_req(pre_req, subject_code)
-    handle_co_req(co_req, subject_code)
+
+    handle_prerequisite(prerequisite, subject_code)
+    handle_corequisite(corequisite, subject_code)
     handle_equivalence(equivalence, subject_code)
 
 
-def handle_co_req(co_req, subject_code):
-    co_req_list = co_req.text.split()[2:-1]
+def handle_corequisite(corequisite, subject_code):
+    corequisite_list = corequisite.text.split()[2:-1]
     # Always find subject
     subject = Subject.objects.get(code=subject_code)
-    for disciplina in co_req_list:
+    for disciplina in corequisite_list:
         # Caso não seja (, ), OU e E
         if disciplina != "(" and disciplina != ")":
             if disciplina.upper() != "OU" and disciplina.upper() != "E":
                 # Cria o pré-requisito
                 try:
-                    co_req = Subject.objects.get(code=disciplina)
-                    CoRequisite.objects.create(subject=subject, corequisite=co_req)
+                    corequisite = Subject.objects.get(code=disciplina)
+                    CoRequisite.objects.create(subject=subject, corequisite=corequisite)
                 except:
                     print(f"Disciplina não encontrada para có-requisito: {disciplina}")
 
 
-def handle_pre_req(pre_req, subject_code):
-    pre_req_list = pre_req.text.split()[2:-1]
+def handle_prerequisite(prerequisit, subject_code):
+    prerequisit_list = prerequisit.text.split()[2:-1]
     # Always find subject
     subject = Subject.objects.get(code=subject_code)
-    pre_req_set = PreRequisiteSet.objects.create(subject=subject)
-    for disciplina in pre_req_list:
+    prerequisit_set = PreRequisiteSet.objects.create(subject=subject)
+    for disciplina in prerequisit_list:
         if disciplina != "(" and disciplina != ")":
             # Cria um novo conjunto de disciplina
             if disciplina.upper() == "OU":
                 subject = Subject.objects.get(code=subject_code)
-                pre_req_set = PreRequisiteSet.objects.create(subject=subject)
+                prerequisit_set = PreRequisiteSet.objects.create(subject=subject)
             elif disciplina.upper() == "E":
                 continue
             else:
                 # Adiciona a disciplina no conjunto de pré-requisitos atual
                 try:
                     subject = Subject.objects.get(code=disciplina)
-                    pre_req_set.prerequisite.create(subject=subject)
+                    prerequisit_set.prerequisite.create(subject=subject)
                 except:
                     print(f"Disciplina não encontrada para pré-requisito: {disciplina}")
 
@@ -81,18 +84,6 @@ def get_cookies():
     return response.headers["Set-Cookie"].split(" ")[0]
 
 
-def get_params_for_parse(subject_code):
-    url = "https://sig.unb.br/sigaa/public/componentes/busca_componentes.jsf"
-    cookies = get_cookies()
-    payload = f"form=form&form%3Anivel=G&form%3Atipo=4&form%3Aunidades=0&form%3AbtnBuscarComponentes=Buscar%2BComponentes&javax.faces.ViewState=j_id1&form%3AcheckCodigo=on&form%3Aj_id_jsp_190531263_11={subject_code}&form%3Aj_id_jsp_190531263_13="
-    header = {"Cookie": cookies, "Content-Type": "application/x-www-form-urlencoded"}
-    response = requests.request("POST", url, headers=header, data=payload)
-    page_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
-    subject_link_to = page_soup.select_one("tbody td a")
-    subject_id = subject_link_to["onclick"].split(":")[4][1:7]
-    return subject_id, cookies
-
-
 def get_request_data(url):
     response = requests.request("GET", url)
     html_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
@@ -105,7 +96,7 @@ def get_request_data(url):
 def request_subject_page(payload_data):
     url = "https://sigaa.unb.br/sigaa/public/componentes/busca_componentes.jsf?aba=p-ensino"
     request_data = get_request_data(url)
-
+    print(request_data)
     payload = {
         "formListagemComponentes": "formListagemComponentes",
         "javax.faces.ViewState": request_data["javax"],
@@ -124,4 +115,4 @@ def request_subject_page(payload_data):
 
 def run():
     # Exemplo introdução ao processamento de imagens
-    parse_equivalence("ENE0042",)
+    parse_equivalence("CIC0004", 177944)

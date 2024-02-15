@@ -1,51 +1,69 @@
 from bs4 import BeautifulSoup
 import requests
 from django.db import IntegrityError
-from course.models.models import Course, Subject, CourseCurriculum, Department
+from course.models.models import (
+    Course,
+    Subject,
+    CourseCurriculum,
+    CurriculumSubject,
+    Department,
+)
 
 # Maps some departments whose code format isn't recognized
 DEPARTMENTS_MAP = {"GPP": "FACE", "REL": "IREL", "POL": "IPOL"}
 
 
-def parse_course(course_sigaa_id):
+def parse_course(course_id):
     # Try to get the course. If its not possible, exit the function
     try:
-        course = Course.objects.get(code=course_sigaa_id)
+        course = Course.objects.get(id=course_id)
     except:
-        print(f"course {course_sigaa_id} does not exist in the DB")
+        print(f"course {course_id} does not exist in the DB")
         return
 
     print(f"--------- Parsing course {course.name} ----------")
+    curriculum_ids = get_course_curriculum_ids(course_id)
+    for curriculum_id in curriculum_ids:
+        html_soup = request_curriculum_page(
+            {
+                "curriculum_id": curriculum_id,
+                "course_id": course_id,
+            }
+        )
 
-    # Get sigaa info to make the proper request
-    active_curriculum_ids = get_course_curriculum_ids(course_sigaa_id)
-    # print(active_curriculum_ids)
-
-    for curriculum_id in active_curriculum_ids:
-        payload_data = {
-            "curriculum_id": curriculum_id,
-            "course_sigaa_id": course_sigaa_id,
-        }
-        html_soup = request_course_curriculum_page(payload_data)
-
-        print(html_soup)
-        parse_flow(html_soup, course)
-
-        header_soup = html_soup.find_all("tr", limit=15)
-        optional_subjects_soup = html_soup.find(id="optativas")
-
+        header_soup = html_soup.select("table tr", limit=17)
         header_info = get_header_info(header_soup)
+
+        optional_subjects_soup = html_soup.find(id="optativas")
         optional_subjects_info = get_optional_subject_info(optional_subjects_soup)
+
+        try:
+            curriculum = CourseCurriculum.objects.update_or_create(
+                id=curriculum_id, code=header_info["code"], course=course
+            )[0]
+        except Exception as e:
+            print(e)
+            break
+
+        parse_flow(html_soup, curriculum)
 
         # Adds additional course information
         try:
-            course.opt_workload = int(header_info["opt_workload"])
-            course.total_workload = int(header_info["total_workload"])
-            course.mandatory_workload = int(header_info["mandatory_workload"])
+            curriculum = CourseCurriculum.objects.update_or_create(
+                course=course,
+                id=curriculum_id,
+                code=header_info["code"],
+                start_semester=header_info["start"],
+                total_workload=header_info["total_workload"],
+                optional_workload=header_info["optional_workload"],
+                mandatory_workload=header_info["mandatory_workload"],
+                max_total_free_module=header_info["max_total_free_module"],
+                max_period_workload=header_info["max_period_workload"],
+                min_period_workload=header_info["min_period_workload"],
+            )
 
-            course.save()
         except:
-            print(f"Could not save course: {course.name}")
+            print(f"Could not save course curriculum: {curriculum.code}")
             pass
 
         # For each subject in the curriculum page
@@ -78,12 +96,12 @@ def parse_course(course_sigaa_id):
                             department = Department.objects.get(code=new_dept_code)
                         except Exception as error:
                             print(
-                                f"        Could not find correct department: {error}. Creating subject {curr_subject['name']} without department"
+                                f"Could not find correct department: {error}. Creating subject {curr_subject['name']} without department"
                             )
 
                     else:
                         print(
-                            f"        Could not find alternative department code: {error}. Creating subject {curr_subject['name']} without department"
+                            f"Could not find alternative department code: {error}. Creating subject {curr_subject['name']} without department"
                         )
 
                     # Creates subject without department
@@ -123,7 +141,7 @@ def parse_course(course_sigaa_id):
 
             # Create link between the subject and its course curriculum
             try:
-                cc = CourseCurriculum(course=course, subject=subject)
+                cc = CurriculumSubject(course=course, subject=subject)
                 cc.save()
             except:
                 print(
@@ -132,8 +150,8 @@ def parse_course(course_sigaa_id):
                 continue
 
 
-def get_course_curriculum_ids(course_sigaa_id):
-    url = f"https://sig.unb.br/sigaa/public/curso/curriculo.jsf?lc=pt_BR&id={course_sigaa_id}"
+def get_course_curriculum_ids(course_id):
+    url = f"https://sig.unb.br/sigaa/public/curso/curriculo.jsf?lc=pt_BR&id={course_id}"
     response = requests.get(url)
     html_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
     # Get the course ID from a JS function on the <a> onClick action
@@ -162,10 +180,10 @@ def get_request_data(url):
     }
 
 
-def request_course_curriculum_page(payload_data):
-    url = "https://sig.unb.br/sigaa/public/curso/curriculo.jsf"
-    url_referer = f"https://sig.unb.br/sigaa/public/curso/curriculo.jsf?lc=pt_BR&id={payload_data['course_sigaa_id']}"
+def request_curriculum_page(payload_data):
+    url_referer = f"https://sig.unb.br/sigaa/public/curso/curriculo.jsf?lc=pt_BR&id={payload_data['course_id']}"
     request_data = get_request_data(url_referer)
+    url = "https://sigaa.unb.br/sigaa/public/curso/curriculo.jsf"
 
     payload = {
         "formCurriculosCurso": "formCurriculosCurso",
@@ -174,40 +192,31 @@ def request_course_curriculum_page(payload_data):
         "formCurriculosCurso:j_id_jsp_154341757_30": "formCurriculosCurso:j_id_jsp_154341757_30",
         "id": payload_data["curriculum_id"],
     }
-    print(payload)
     headers = {
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
-        "Cache-Control": "max-age=0",
-        "Connection": "keep-alive",
         "Content-Type": "application/x-www-form-urlencoded",
         "Cookie": request_data["cookies"],
-        "Host": "sigaa.unb.br",
-        "Origin": "https://sigaa.unb.br",
-        "Referer": url_referer,
-        "Upgrade-Insecure-Requests": "1",
-        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     }
+
     response = requests.post(url, headers=headers, data=payload)
     html_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
     return html_soup
 
 
-def parse_flow(html_soup, course):
+def parse_flow(html_soup, curriculum):
     semesters = html_soup.find("div", {"class": "yui-content"})
     if semesters:
         # Verificando se não está vazio
-        semesters = semesters.find_all("div")[2:]
+        semesters = semesters.find_all("div")[2:]  # pula optativas e complementares
     for semester in semesters:
         semester_number = semester["id"][8:]
+        print(semester_number)
         # Do not get the last term Ex: Carga Horária Total: 360hrs.
         semester_subjects = semester.find_all("tr")[:-1]
         for subject in semester_subjects:
-            save_subject(course, subject, semester_number)
+            save_subject(curriculum, subject, semester_number)
 
 
-def save_subject(course, html_subject, semester):
+def save_subject(curriculum, html_subject, semester):
     html_subject_rows = html_subject.find_all("td")
     subject_info = html_subject_rows[0].text.split(" - ")
     status = html_subject_rows[1].text.strip()
@@ -231,9 +240,9 @@ def save_subject(course, html_subject, semester):
         subject = Subject.objects.get(code=code)
     except Exception as error:
         print(f"Could not find subject {name}: {error}. Trying to create it")
+        # If the subject can't be found, get its department from its code
         dept_initials = code[:3]
 
-        # If the subject can't be found, get its department from its code
         # Try to find the department
         try:
             department = Department.objects.get(initials=dept_initials)
@@ -280,7 +289,7 @@ def save_subject(course, html_subject, semester):
             return
 
     # Append the created subject
-    course.append_subject(semester, subject, status_code[status])
+    curriculum.append_subject(semester, subject, status_code[status])
 
 
 def get_header_info(header_soup):
@@ -292,10 +301,20 @@ def get_header_info(header_soup):
         elem.text.replace("\t", "").replace("\n", "") for elem in header_soup
     ]
 
+    # Erro na geração de código do sigaa não fecha uma tag <tr>
+    bug = trimmed_header[9]
+    corrected = bug[0 : trimmed_header[9].find("Optativas")].split("h")
+
     # Get course detailed workload
-    header_info["total_workload"] = re.findall(r"\d+", trimmed_header[4])[0]
-    header_info["opt_workload"] = re.findall(r"\d+", trimmed_header[9])[0]
-    header_info["mandatory_workload"] = re.findall(r"\d+", trimmed_header[8])[0]
+    header_info["code"] = trimmed_header[0].split(":")[1].strip()
+    header_info["semester"] = trimmed_header[2].split(":")[1].strip()
+    header_info["total_workload"] = int(re.findall(r"\d+", trimmed_header[4])[0])
+    header_info["mandatory_workload"] = int(re.findall(r"\d+", trimmed_header[8])[0])
+    header_info["optative_workload"] = int(re.findall(r"\d+", corrected[0])[0])
+    # header_info["additional_workload"] = int(re.findall(r"\d+", corrected[1])[0])
+    header_info["max_total_free_module"] = int(re.findall(r"\d+", corrected[3])[0])
+    header_info["max_period_workload"] = int(re.findall(r"\d+", corrected[4])[0])
+    header_info["min_period_workload"] = int(re.findall(r"\d+", corrected[5])[0])
 
     return header_info
 

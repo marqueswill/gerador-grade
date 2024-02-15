@@ -119,7 +119,7 @@ def parse_oferta(department_id, department_name):
                         place=class_data["place"],
                     )
                     print(
-                        f'Oferta criada para {class_data["subject_code"]}-{class_data["subject_name"]} no banco de dados'
+                        f'Oferta criada para {class_data["subject_code"]}-{class_data["subject_name"]}'
                     )
                 except:
                     print(

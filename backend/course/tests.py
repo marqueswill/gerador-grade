@@ -16,7 +16,7 @@ class CourseTestCase(TestCase):
         course.adicionar_disciplina(semester=2, code_subject=c.code, status="OBR")
 
     def test_flows_course(self):
-        course = Course.objects.get(code=1741)
+        course = Course.objects.get(id=1741)
         flow = {
             1: [
                 {"subject_name": "C1", "status": "OBR", "credit": 6},
