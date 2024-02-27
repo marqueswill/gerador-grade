@@ -1,21 +1,12 @@
 from bs4 import BeautifulSoup
 import requests
-from course.models.models import Equivalence, PreRequisiteSet, Subject, CoRequisite
 
-
-def parse_equivalence(subject_code, subject_id):
-
-    html_soup = request_subject_page({"subject_id": subject_id})
-    table = html_soup.select_one(".visualizacao")
-
-    print(table)
-    prerequisite = table.select("tr")[8]
-    corequisite = table.select("tr")[9]
-    equivalence = table.select("tr")[10]
-
-    handle_prerequisite(prerequisite, subject_code)
-    handle_corequisite(corequisite, subject_code)
-    handle_equivalence(equivalence, subject_code)
+from backend.course.models.models import (
+    CoRequisite,
+    Equivalence,
+    PreRequisiteSet,
+    Subject,
+)
 
 
 def handle_corequisite(corequisite, subject_code):
@@ -56,6 +47,7 @@ def handle_prerequisite(prerequisit, subject_code):
                     print(f"Disciplina não encontrada para pré-requisito: {disciplina}")
 
 
+# TODO: refazer considerando os diferente currículos
 def handle_equivalence(equivalences, subject_code):
     equivalences_list = equivalences.text.split()[2:-1]
     destination = Subject.objects.get(code=subject_code)
@@ -76,43 +68,3 @@ def handle_equivalence(equivalences, subject_code):
                     )
                 except:
                     print(f"Disciplina {equivalence} não existe no BD")
-
-
-def get_cookies():
-    url = "https://sig.unb.br/sigaa/public/componentes/busca_componentes.jsf"
-    response = requests.request("GET", url)
-    return response.headers["Set-Cookie"].split(" ")[0]
-
-
-def get_request_data(url):
-    response = requests.request("GET", url)
-    html_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
-    return {
-        "cookies": response.headers["Set-Cookie"].split(" ")[0],
-        "javax": html_soup.find("input", {"name": "javax.faces.ViewState"})["value"],
-    }
-
-
-def request_subject_page(payload_data):
-    url = "https://sigaa.unb.br/sigaa/public/componentes/busca_componentes.jsf?aba=p-ensino"
-    request_data = get_request_data(url)
-    print(request_data)
-    payload = {
-        "formListagemComponentes": "formListagemComponentes",
-        "javax.faces.ViewState": request_data["javax"],
-        "formListagemComponentes:j_id_jsp_190531263_23": "formListagemComponentes:j_id_jsp_190531263_23",
-        "id": payload_data["subject_id"],
-        "publico": "public",
-    }
-    headers = {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Cookie": request_data["cookies"],
-    }
-    response = requests.post(url, headers=headers, data=payload)
-    html_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
-    return html_soup
-
-
-def run():
-    # Exemplo introdução ao processamento de imagens
-    parse_equivalence("CIC0004", 177944)

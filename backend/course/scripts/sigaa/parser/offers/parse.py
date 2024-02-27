@@ -1,52 +1,11 @@
-from bs4 import BeautifulSoup
-from time import sleep
-import requests
-from course.models.models import Offer
-from course.models.models import Subject
-from course.models.models import Teacher, OfferTeacher
+from backend.course.scripts.sigaa.page_requests import get_ids_and_names, request_department_classes_page
+from backend.course.scripts.sigaa.parser.offers.auxiliar import (
+    SEMESTER,
+    YEAR,
+    refactor_list,
+)
+from course.models.models import Offer, Subject, Teacher, OfferTeacher
 from django.db import IntegrityError
-
-YEAR = 2024
-SEMESTER = 1
-
-
-# Input: Lista contendo os valores das disciplinas para ser refatorado (obtidos através dos tds)
-# Output: Dicionário contendo as informações refatoradas para criar a oferta
-def refactor_list(class_raw_data, subject_title):
-    # print(class_raw_data)
-    class_data = {}
-    class_data["name"] = class_raw_data[0]
-    class_data["semester"] = class_raw_data[1]
-
-    raw_teachers = class_raw_data[2].split(")")  # todas strings terminam com ex: "(60h"
-    class_data["teacher"] = "/".join(
-        raw_teachers[i][0 : raw_teachers[i].find("(")].strip()
-        for i in range(len(raw_teachers) - 1)
-    )
-
-    class_data["schedule"] = class_raw_data[3][0 : class_raw_data[3].find(" ")]
-
-    class_data["students_qtd"] = class_raw_data[5]
-    class_data["occupied"] = class_raw_data[6]
-    class_data["place"] = class_raw_data[7]
-    class_data["subject_code"] = subject_title.split(" ")[0]
-    class_data["subject_name"] = subject_title.split(" - ", 1)[-1]
-
-    # print(class_data)
-    return class_data
-
-
-def get_ids_and_names(url):
-    response = requests.get(url)
-    html_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
-    list_depto = html_soup.find(id="formTurma:inputDepto")
-
-    departamentos = {}
-    for depto in list_depto.find_all("option"):
-        departamentos[depto["value"]] = depto.text
-
-    departamentos.pop("0", None)
-    return departamentos
 
 
 def parse_oferta(department_id, department_name):
@@ -176,37 +135,6 @@ def parse_oferta(department_id, department_name):
 
         if line == None:
             break
-
-
-def get_request_data(url):
-    response = requests.request("GET", url)
-    html_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
-    return {
-        "cookies": response.headers["Set-Cookie"].split(" ")[0],
-        "javax": html_soup.find("input", {"name": "javax.faces.ViewState"})["value"],
-    }
-
-
-def request_department_classes_page(payload_data):
-    url = "https://sigaa.unb.br/sigaa/public/turmas/listar.jsf"
-    request_data = get_request_data(url)
-    payload = {
-        "formTurma": "formTurma",
-        "formTurma:inputNivel": "G",
-        "formTurma:inputDepto": payload_data["department_id"],
-        "formTurma:inputAno": payload_data["year"],
-        "formTurma:inputPeriodo": payload_data["semester"],
-        "formTurma:j_id_jsp_1370969402_11": "Buscar",
-        "javax.faces.ViewState": request_data["javax"],
-    }
-    headers = {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Cookie": request_data["cookies"],
-    }
-
-    response = requests.post(url, data=payload, headers=headers)
-    html_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
-    return html_soup
 
 
 def run():
