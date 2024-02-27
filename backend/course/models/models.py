@@ -20,8 +20,8 @@ class Department(models.Model):
 
 # Classe que armazena as disciplinas
 class Subject(models.Model):
-    id = models.PositiveSmallIntegerField(primary_key=True)
-    code = models.CharField(max_length=20)
+    id = models.PositiveSmallIntegerField(null=True)
+    code = models.CharField(max_length=20, primary_key=True)
     department = models.ForeignKey(
         Department, on_delete=models.CASCADE, related_name="subject", null=True
     )
@@ -124,7 +124,7 @@ class CourseCurriculum(models.Model):
     id = models.BigIntegerField(primary_key=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="course")
     code = models.CharField(max_length=6, null=True)
-    start_semester = models.BigIntegerField(null=True)
+    start_semester = models.CharField(max_length=6, null=True)
 
     total_workload = models.PositiveIntegerField(null=True)
     optional_workload = models.PositiveIntegerField(null=True)
@@ -204,7 +204,7 @@ class CurriculumSubject(models.Model):
     subject = models.ForeignKey(
         Subject, on_delete=models.CASCADE, related_name="curriculum_subject"
     )
-    semester = models.PositiveSmallIntegerField()
+    semester = models.PositiveSmallIntegerField(null=True)
     status = models.CharField(max_length=3, choices=STATUS)
 
     def subject_name(self):

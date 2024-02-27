@@ -88,11 +88,13 @@ def request_department_subjects_page(payload_data):
 
 # Esse parse tem a função de criar as disciplinas no banco de dados, é necessário que os departamentos já estejam criados
 def run():
-    departments = get_ids_and_names()
+    # departments = get_ids_and_names()
+    departments = {508: "DEPTO CIÊNCIAS DA COMPUTAÇÃO"}
     for department_sigaa_id in departments:
         department_name = (
             departments[department_sigaa_id].split(" - ")[0].split(" (")[0]
         )
+
         try:
             print(f"Registrando disciplinas para: {department_name}")
             department_object = Department.objects.get(name=department_name)
