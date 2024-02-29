@@ -1,5 +1,5 @@
-from backend.course.scripts.sigaa.page_requests import request_curriculum_page
-from backend.course.scripts.sigaa.parser.course.auxiliar import (
+from course.scripts.sigaa.page_requests import request_curriculum_page
+from course.scripts.sigaa.parser.course.auxiliar import (
     get_course_curriculum_ids,
     get_header_info,
     save_subject,

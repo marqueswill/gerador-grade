@@ -1,5 +1,3 @@
-from bs4 import BeautifulSoup
-import requests
 
 YEAR = 2024
 SEMESTER = 1

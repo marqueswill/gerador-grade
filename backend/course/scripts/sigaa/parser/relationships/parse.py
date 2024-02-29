@@ -1,5 +1,6 @@
-from backend.course.scripts.sigaa.page_requests import request_subject_page
-from backend.course.scripts.sigaa.parser.relationships.auxiliar import (
+from course.models.models import Subject
+from course.scripts.sigaa.page_requests import request_subject_page
+from course.scripts.sigaa.parser.relationships.auxiliar import (
     handle_corequisite,
     handle_equivalence,
     handle_prerequisite,
@@ -7,21 +8,24 @@ from backend.course.scripts.sigaa.parser.relationships.auxiliar import (
 
 
 def parse_relationships(subject):
-    subject_code, subject_id = subject.code, subject.id
+    # print(subject)
 
-    html_soup = request_subject_page({"subject_id": subject_id})
-    table = html_soup.select_one(".visualizacao")
+    html_soup = request_subject_page(
+        {"subject_id": subject.id, "subject_code": subject.code}
+    )
+    table = html_soup.select_one("visualizacao")
+    print(table)
 
-    # print(table)
-    prerequisite = table.select("tr")[8]
-    corequisite = table.select("tr")[9]
-    equivalence = table.select("tr")[10]
+    # prerequisite = table.select("tr")[8]
+    # corequisite = table.select("tr")[9]
+    # equivalence = table.select("tr")[10]
 
-    handle_prerequisite(prerequisite, subject_code)
-    handle_corequisite(corequisite, subject_code)
-    handle_equivalence(equivalence, subject_code)
+    # handle_prerequisite(prerequisite, subject.code)
+    # handle_corequisite(corequisite, subject.code)
+    # handle_equivalence(equivalence, subject.code)
 
 
 def run():
     # Exemplo introdução ao processamento de imagens
-    parse_relationships("CIC0004", 177944)
+    subject = Subject.objects.get(code="CIC0099")
+    parse_relationships(subject)

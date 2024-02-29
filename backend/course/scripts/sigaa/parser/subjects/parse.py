@@ -1,5 +1,5 @@
-from backend.course.scripts.sigaa.page_requests import request_department_subjects_page
-from backend.course.scripts.sigaa.parser.subjects.auxiliar import get_ids_and_names
+from course.scripts.sigaa.page_requests import request_department_subjects_page
+from course.scripts.sigaa.parser.subjects.auxiliar import get_ids_and_names
 from course.models.models import Department, Subject
 from django.db import IntegrityError
 

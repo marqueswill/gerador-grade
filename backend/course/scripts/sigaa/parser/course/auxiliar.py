@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 from django.db import IntegrityError
 
-from backend.course.models.models import Department, Subject
+from course.models.models import Department, Subject
 
 # Maps some departments whose code format isn't recognized
 DEPARTMENTS_MAP = {"GPP": "FACE", "REL": "IREL", "POL": "IPOL"}

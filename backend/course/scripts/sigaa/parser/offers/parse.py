@@ -1,5 +1,8 @@
-from backend.course.scripts.sigaa.page_requests import get_ids_and_names, request_department_classes_page
-from backend.course.scripts.sigaa.parser.offers.auxiliar import (
+from course.scripts.sigaa.page_requests import (
+    get_ids_and_names,
+    request_department_classes_page,
+)
+from course.scripts.sigaa.parser.offers.auxiliar import (
     SEMESTER,
     YEAR,
     refactor_list,

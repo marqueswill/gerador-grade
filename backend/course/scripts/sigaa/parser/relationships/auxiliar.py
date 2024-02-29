@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 
-from backend.course.models.models import (
+from course.models.models import (
     CoRequisite,
     Equivalence,
     PreRequisiteSet,

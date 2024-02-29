@@ -1,7 +1,11 @@
 from bs4 import BeautifulSoup
 import requests
-from backend.course.scripts.sigaa.page_requests import get_ids_and_names, request_department_subjects_page
-from backend.course.scripts.sigaa.parser.departments.auxiliar import (
+
+from course.scripts.sigaa.page_requests import (
+    get_ids_and_names,
+    request_department_subjects_page,
+)
+from course.scripts.sigaa.parser.departments.auxiliar import (
     extract_course_data,
 )
 from course.models.models import Course, Department
@@ -75,7 +79,7 @@ def parse_departments():
 
 
 def run():
-    url = "https://sigaa.unb.br/sigaa/public/componentes/busca_componentes.jsf?aba=p-ensino"
+    url = "https://sigaa.unb.br/sigaa/public/turmas/listar.jsf?aba=p-ensino"
     departments = get_ids_and_names(url)
     for department_sigaa_id in departments:
         department_name = (
@@ -84,6 +88,7 @@ def run():
         if "PROGRAMA DE PÓS-GRADUAÇÃO" in department_name:
             print(f"O departamento será desconsiderado     : {department_name}")
             continue
+
         try:
             Department.objects.get(name=department_name)
             print(f"O departamento já existe na database   : {department_name}")
