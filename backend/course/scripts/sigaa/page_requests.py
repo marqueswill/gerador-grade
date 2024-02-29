@@ -37,35 +37,31 @@ def request_subject_page(payload_data):
     url = "https://sigaa.unb.br/sigaa/public/componentes/busca_componentes.jsf?aba=p-ensino"
     request_data = get_request_data(url)
     # print(request_data)
-    payload = {
-        "form": "form",
-        "form:nivel": "G",
-        "form:checkTipo": "on",
-        "form:tipo": 2,
-        "form:checkCodigo": "on",
-        "form:j_id_jsp_190531263_11": payload_data["subject_code"],
-        "form:j_id_jsp_190531263_13": "",
-        "form:unidades": 0,
-        "form:btnBuscarComponentes": "Buscar Componentes",
-        "javax.faces.ViewState": request_data["javax"],
-    }
-    # print(payload)
     # payload = {
-    #     "formListagemComponentes": "formListagemComponentes",
+    #     "form": "form",
+    #     "form:nivel": "G",
+    #     "form:checkTipo": "on",
+    #     "form:tipo": 2,
+    #     "form:checkCodigo": "on",
+    #     "form:j_id_jsp_190531263_11": payload_data["subject_code"],
+    #     "form:j_id_jsp_190531263_13": "",
+    #     "form:unidades": 0,
+    #     "form:btnBuscarComponentes": "Buscar Componentes",
     #     "javax.faces.ViewState": request_data["javax"],
-    #     "formListagemComponentes:j_id_jsp_190531263_23": "formListagemComponentes:j_id_jsp_190531263_23",
-    #     "id": payload_data["subject_id"],
-    #     "publico": "public",
     # }
+    # print(payload)
+    payload = {
+        "formListagemComponentes": "formListagemComponentes",
+        "javax.faces.ViewState": request_data["javax"],
+        "formListagemComponentes:j_id_jsp_190531263_23": "formListagemComponentes:j_id_jsp_190531263_23",
+        "id": payload_data["subject_id"],
+        "publico": "public",
+    }
     headers = {
         "Content-Type": "application/x-www-form-urlencoded",
         "Cookie": request_data["cookies"],
     }
-    response = requests.post(
-        "https://sigaa.unb.br/sigaa/public/componentes/busca_componentes.jsf",
-        headers=headers,
-        data=payload,
-    )
+    response = requests.post(url, headers=headers, data=payload)
     html_soup = BeautifulSoup(response.text.encode("utf8"), "html.parser")
 
     return html_soup
